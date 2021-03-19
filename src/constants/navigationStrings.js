@@ -14,5 +14,6 @@ export default {
   SUPERMARKET: 'supermarket',
   SUPERMARKET_PRODUCTS_CATEGORY: 'supermarketProductsCategory',
   PRODUCT_LIST: 'productList',
-  LANDINGPAGE:'LandingPage'
+  LANDINGPAGE:'LandingPage',
+  CARTPRODUCT:'CartProduct'
 };

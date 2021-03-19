@@ -12,16 +12,15 @@ import {
   Alert,
 } from 'react-native';
 
-
 import Counter from './../../Components/Counter';
 import {add} from '../../redux/actions/actions';
-
 
 import ModalView from '../../Components/ModalView';
 import Header from '../../Components/Header';
 import store from '../../redux/store';
+import {connect} from 'react-redux';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,6 +41,8 @@ export default class Home extends Component {
         {
           id: 0,
           name: 'Execution',
+          price: 100,
+          quantity: 1,
           rating: '5.0*',
           image:
             'https://images-na.ssl-images-amazon.com/images/I/81gnvKXmLsL._UL1500_.jpg',
@@ -49,7 +50,8 @@ export default class Home extends Component {
         {
           id: 1,
           name: 'Womens design',
-
+          price: 100,
+          quantity: 1,
           rating: '3.0*',
           image:
             'https://images-na.ssl-images-amazon.com/images/I/81jITMrPr0L._UL1500_.jpg',
@@ -57,7 +59,8 @@ export default class Home extends Component {
         {
           id: 2,
           name: 'Womens Clothing',
-
+          price: 100,
+          quantity: 1,
           rating: '4.5*',
           image:
             'https://images-na.ssl-images-amazon.com/images/I/61GORvjTJxL._UL1440_.jpg',
@@ -65,7 +68,8 @@ export default class Home extends Component {
         {
           id: 3,
           name: 'Brand Collection',
-
+          price: 100,
+          quantity: 1,
           rating: '3.9*',
           image:
             'https://images-na.ssl-images-amazon.com/images/I/71vtGhTq7rL._UL1500_.jpg',
@@ -73,7 +77,8 @@ export default class Home extends Component {
         {
           id: 4,
           name: 'New Collection',
-
+          price: 100,
+          quantity: 1,
           rating: '4.6*',
           image:
             'https://images-na.ssl-images-amazon.com/images/I/61QQ3N%2Bvx-L._UL1440_.jpg',
@@ -81,7 +86,8 @@ export default class Home extends Component {
         {
           id: 5,
           name: 'Clothes',
-
+          price: 100,
+          quantity: 1,
           rating: '2.3*',
           image:
             'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
@@ -89,7 +95,8 @@ export default class Home extends Component {
         {
           id: 6,
           name: 'designs',
-
+          price: 100,
+          quantity: 1,
           rating: '1.2*',
           image:
             'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
@@ -97,7 +104,8 @@ export default class Home extends Component {
         {
           id: 7,
           name: 'Offer',
-
+          price: 100,
+          quantity: 1,
           rating: '2.1*',
           image:
             'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
@@ -105,7 +113,8 @@ export default class Home extends Component {
         {
           id: 8,
           name: 'new Offering',
-
+          price: 100,
+          quantity: 1,
           rating: '2.5*',
           image:
             'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
@@ -113,7 +122,8 @@ export default class Home extends Component {
         {
           id: 9,
           name: 'new Designs',
-
+          price: 100,
+          quantity: 1,
           rating: '3.4*',
           image:
             'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
@@ -122,8 +132,7 @@ export default class Home extends Component {
     };
     console.disableYellowBox = true;
   }
-  s = store.subscribe(() => this.setState({}));
- 
+
   _onChangeText = key => {
     return value => {
       this.setState({
@@ -153,46 +162,25 @@ export default class Home extends Component {
     this.setState({isModalVisibal: false});
   };
 
-  add = (id) => {
-    const { isModalVisibal, description,brandedItems} = this.state;
+  add = id => {
+    const {isModalVisibal, description, brandedItems} = this.state;
     let newPostArry = [...brandedItems];
+
     var obj = {};
-    
-       var obj = {};
-       obj['id'] = newPostArry[id].id;
-       obj['name'] = newPostArry[id].name;
-      
-       obj['image'] = newPostArry[id].image;
-  
-     store.dispatch(add(obj));
-     console.log(store.getState().todo);
-  
-     this.setState({
-      cartCount: store.getState().todo.length,
-      
+
+    var obj = {};
+    obj['id'] = newPostArry[id].id;
+    obj['name'] = newPostArry[id].name;
+    obj['price'] = newPostArry[id].price;
+    obj['quantity'] = newPostArry[id].quantity;
+    obj['image'] = newPostArry[id].image;
+
+    store.dispatch(add(obj));
+    console.log(obj.quantity);
+
+    this.setState({
+      cartCount: this.props.data.length+1,
     });
-    alert(this.state.cartCount)
-  };
-  
-  onDelete = id => {
-    Alert.alert(
-      'Alert Message',
-      'are you sure you want to delete this post',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log(id),
-          style: 'cancel',
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            store.dispatch(ondelete(id));
-          },
-        },
-      ],
-      {cancelable: false},
-    );
   };
 
   onUpdate = () => {
@@ -206,8 +194,15 @@ export default class Home extends Component {
   };
 
   render() {
-    const {isModalVisibal, title, descriptionPlaceholder, isAdd,brandedItems,cartCount} = this.state;
-    console.log(store.getState().todo)
+    const {
+      isModalVisibal,
+      title,
+      descriptionPlaceholder,
+      isAdd,
+      brandedItems,
+      cartCount,
+    } = this.state;
+    console.log(this.props, 'reducer data');
 
     return (
       <View style={{flex: 1}}>
@@ -218,17 +213,10 @@ export default class Home extends Component {
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id}
           renderItem={({item, index}) => {
-            return (
-              <Counter
-                data={item} 
-                onadd={this.add}
-              />
-            );
+            return <Counter data={item} onadd={this.add} />;
           }}
         />
-        <View style={{position: 'absolute', bottom: 0, right: 0}}>
-         
-        </View>
+        <View style={{position: 'absolute', bottom: 0, right: 0}}></View>
         {isAdd ? (
           <ModalView
             _onChangeText={this._onChangeText}
@@ -266,3 +254,10 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
 });
+const mapStateToProps = function (state) {
+  return {
+    data: state.todo,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

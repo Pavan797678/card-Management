@@ -1,5 +1,5 @@
 import React from 'react';
-import {Home} from '../Screens';
+import {CartProduct, Home} from '../Screens';
 import navigationStrings from '../constants/navigationStrings';
 
 
@@ -9,6 +9,11 @@ export default function (Stack) {
       <Stack.Screen
         name={navigationStrings.HOME}
         component={Home}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name={navigationStrings.CARTPRODUCT}
+        component={CartProduct}
         options={{headerShown: false}}
       />
      

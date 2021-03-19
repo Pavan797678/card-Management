@@ -21,12 +21,14 @@ export default function Header({cartCount}) {
                 <View style={styles.miceCartIconView}>
                 <Image source={imagePath.notification} style={styles.notificationIcon} resizeMode="contain"/>
                <TouchableOpacity onPress={()=>{
-                 navigation.navigate(navigationStrings.CARTPRODUCT, {data,totalDiscountPrice:totalDiscountPrice});
+                 navigation.navigate(navigationStrings.CARTPRODUCT);
                }}>
+                  
                 <View>
                     <Text style={styles.cartCount}>{cartCount}</Text>
                 <Image source={imagePath.cart} style={styles.cartIcon} resizeMode="contain"/>
                 </View>
+               
                 </TouchableOpacity>
                 </View>
                 </View>

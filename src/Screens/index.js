@@ -4,4 +4,5 @@ export {default as OtpVerification} from './OtpVerification/OtpVerification';
 export {default as OuterScreen} from './OuterScreen/OuterScreen';
 export {default as LandingPage} from './LandingScreen/LandingPage';
 export {default as Home} from './Home/Home';
+export {default as CartProduct} from './CartProduct/CartProduct';
 
