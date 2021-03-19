@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image, TextInput} from 'react-native';
 import ButtonWithImage from '../../Components/ButtonWithImage';
 import ButtonWithLoader from '../../Components/ButtonWithLoader';
+import validator from '../../utils/validations';
 import TextInputWithLabel from '../../Components/TextInputWithLabel';
 import WrapperContainer from '../../Components/WrapperContainer';
 import imagePath from '../../constants/imagePath';
 import navigationStrings from '../../constants/navigationStrings';
 import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
+import api from '../../redux/actions/index';
 
 import {
   moderateScaleVertical,
@@ -15,6 +17,73 @@ import {
 } from '../../styles/responsiveSize';
 
 export default class Login extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      userEmail: '',
+      userPassword: '',
+      isLoading: false,
+      screenName:'Login',
+     
+    };
+  }
+
+  
+
+  _onChangeText(key) {
+    return (value) => {
+      this.setState({
+        [key]: value,
+      });
+    };
+  }
+  isValidData = () => {
+    const {userEmail, userPassword} = this.state;
+    const error = validator({
+      email: userEmail,
+      password: userPassword,
+    });
+    if (error) {
+       alert('enter valid data')
+      return false;
+    }
+    return true;
+  };
+
+  mainLogin = () => {
+    const {userEmail, userPassword} = this.state;
+    const {navigation} = this.props;
+    if (this.isValidData()) {
+      this.setState({
+        isLoading: true,
+      });
+      api
+        .login({
+          email: userEmail,
+          password: userPassword,
+        })
+        .then((res) => {
+          console.log(JSON.stringify(res));
+
+          this.setState({
+            isLoading: false,
+          });
+          alert('login Success')
+          navigation.navigate(navigationStrings.HOME)
+              
+        })
+        .catch((error) => {
+          this.setState({
+            isLoading: false,
+          });
+          alert('login Error')
+          console.log(JSON.stringify(error));
+        });
+    }
+  };
+
   onmove = () => {
     const {navigation} = this.props;
     navigation.navigate(navigationStrings.SIGN_UP);
@@ -28,14 +97,19 @@ export default class Login extends Component {
               marginHorizontal: 15,
               marginTop: moderateScaleVertical(15),
             }}>
-            <TextInputWithLabel label="Email" placeholder="Enter your Email" />
-            <TextInputWithLabel
-              label="Password"
-              placeholder="Enter your password"
-              secureTextEntry={true}
-            />
+            <TextInput
+            style={styles.emailField}
+            placeholder={'Email'}
+            onChangeText={this._onChangeText('userEmail')}
+          />
+          <TextInput
+            style={styles.birthDateField}
+            placeholder={'Password'}
+            onChangeText={this._onChangeText('userPassword')}
+          />
             <View style={{alignItems:'center'}}>
-              <ButtonWithLoader btnText={'login'} />
+               
+              <ButtonWithLoader btnText={'login'} onPress={this.mainLogin}/>
             </View>
           </View>
 

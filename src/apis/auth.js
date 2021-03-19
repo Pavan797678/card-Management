@@ -1,5 +1,5 @@
-import { apiDelete, apiGet, apiPost, apiPut, getUserData, setUserData } from "../../utils/utils";
-import {SIGNUP,LOGIN} from '../../config/urls';
+import { apiDelete, apiGet, apiPost, apiPut, getUserData, setUserData } from "../utils/utils";
+import {SIGNUP,LOGIN} from '../config/urls';
 
 
 export function signUp(data = {}) {
@@ -17,7 +17,7 @@ export function signUp(data = {}) {
   }
   
   export function login(data = {}) {
- console.log(data)
+ 
     return new Promise((resolve,reject)=>{
       apiPost(LOGIN,data).then(res=>{
         setUserData(res.data)

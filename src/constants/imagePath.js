@@ -16,6 +16,7 @@ export default {
   hearPlush:require('../assets/images/heartPulsh.png'),
   visit:require('../assets/images/visit.png'),
   user:require('../assets/images/user.png'),
+  cart:require('../assets/images/cart.png')
 
   
 

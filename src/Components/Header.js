@@ -1,86 +1,119 @@
-import React from 'react';
-import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import React from "react";
+import { View, Text,StyleSheet,StatusBar, TextInput,Image,TouchableOpacity } from "react-native";
+import imagePath from "../constants/imagePath";
+import navigationStrings from "../constants/navigationStrings";
 
-import fontFamily from '../styles/fontFamily';
-import colors from '../styles/colors';
-import {
-  textScale,
-  moderateScale,
-  moderateScaleVertical,
-} from '../styles/responsiveSize';
-import imagePath from '../constants/imagePath';
-import {useNavigation} from '@react-navigation/native';
-import {hitSlopProp} from '../styles/commonStyles';
+import {useNavigation} from "@react-navigation/native"
+import colors from "../styles/colors";
 
-const Header = ({
-  leftIcon = imagePath.back,
-  centerTitle,
-  textStyle,
-  horizontLine = true,
-  rightIcon = '',
-  onPressLeft,
-  onPressRight,
-  customRight,
-  hideRight=true
-}) => {
-  const navigation = useNavigation();
-  return (
-    <>
-      <View
-        style={{
-          ...styles.headerStyle,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-          <View style={{alignItems:'flex-start',minWidth:moderateScale(72)}}>
-        <TouchableOpacity
-          hitSlop={hitSlopProp}
-          activeOpacity={0.7}
-          onPress={
-            !!onPressLeft
-              ? onPressLeft
-              : () => {
-                  navigation.goBack();
-                }
-          }>
-          <Image resizeMode="contain" source={leftIcon} />
-        </TouchableOpacity>
+
+export default function Header({cartCount}) {
+
+    const navigation = useNavigation()
+
+    
+    return (
+        <View>
+            <StatusBar barStyle="dark-content" backgroundColor={colors.themeColor} />
+            <View style={styles.headerBar}>
+                <View style={styles.logoView}>
+                <Text style={{color:colors.white,fontSize:20}}>CART MANAGEMENT</Text>
+                <View style={styles.miceCartIconView}>
+                <Image source={imagePath.notification} style={styles.notificationIcon} resizeMode="contain"/>
+               <TouchableOpacity onPress={()=>{
+                 navigation.navigate(navigationStrings.CARTPRODUCT, {data,totalDiscountPrice:totalDiscountPrice});
+               }}>
+                <View>
+                    <Text style={styles.cartCount}>{cartCount}</Text>
+                <Image source={imagePath.cart} style={styles.cartIcon} resizeMode="contain"/>
+                </View>
+                </TouchableOpacity>
+                </View>
+                </View>
+                
+            </View>
+
         </View>
-        <Text
-          style={{
-            ...styles.textStyle,
-            ...textStyle,
-            width: moderateScale(150),
-          }}>
-          {centerTitle}
-        </Text>
-        <View style={{alignItems:'flex-end',minWidth:moderateScale(72)}}>
-        {!!rightIcon ? (
-          <TouchableOpacity onPress={onPressRight}>
-            <Image source={rightIcon} />
-          </TouchableOpacity>
-        ) : !!customRight ? (
-          customRight()
-        ) : (
-         hideRight? <View style={{width: 25}} />:<Image source={imagePath.cartShop}/>
-        )}
-        </View>
-      </View>
-    </>
-  );
-};
-export default Header;
-const styles = StyleSheet.create({
-  headerStyle: {
-    padding: moderateScaleVertical(16),
-  },
-
-  textStyle: {
-    color: colors.black2Color,
-    fontSize: textScale(17),
-    lineHeight: textScale(28),
-    textAlign: 'center',
-    fontFamily: fontFamily.futuraBtHeavy,
-  },
-});
+    )
+}
+const styles=StyleSheet.create({
+    headerBar:{
+        height:50,
+        backgroundColor:colors.themeColor,
+        alignItems:'center',
+      
+    },
+    logoView:{
+        flexDirection:'row',
+        width:'100%',
+        paddingHorizontal:10,
+        marginVertical:5,
+        alignItems:"center"
+    },
+    searchBarView:{
+        width:'95%',
+        height:"40%",
+        backgroundColor:'white',
+        borderRadius:5,
+        elevation:10,
+        marginBottom:10,
+        flexDirection:'row',
+        alignItems:'center',
+        paddingHorizontal:10,
+        marginTop:'auto'
+        
+    },
+    searchIcon:{
+        height:20,
+        width:"7%"
+    },
+    cameraIcon:{
+        height:25,
+        width:"7%"
+    },
+    searcTextInput:{
+        width:"86%",
+        height:40,
+        fontSize:18,
+        fontWeight:"bold",
+        paddingVertical:5
+    },
+    drawerIcon:{
+        height:30,
+        width:30,
+        marginVertical:13
+    },
+    amazonIcon:{
+        height:50,
+        width:100,
+        marginHorizontal:20
+    },
+    miceCartIconView:{
+        marginLeft:'auto',
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    microphoneIcon:{
+        height:25,
+        width:25,
+        marginHorizontal:20
+    },
+    cartIcon:{
+        height:50,
+        width:50,
+        position:'relative'
+    },notificationIcon:{
+        height:20,
+        width:20,
+        right:'15%',
+        position:'relative'
+    },
+ 
+    cartCount:{
+        fontSize:16,
+        position:'absolute',
+        left:"45%",
+        top:"15%",
+        color:'red'
+    }
+})

@@ -1,20 +1,18 @@
-import React from "react";
-import {createStackNavigator} from '@react-navigation/stack'
-import TabRoutes from "./TabRoutes";
-import navigationStrings from "../constants/navigationStrings";
-const Stack=createStackNavigator();
-export default function(){
+import React from 'react';
+import {Home} from '../Screens';
+import navigationStrings from '../constants/navigationStrings';
 
 
-  return(
+export default function (Stack) {
+  return (
     <>
-    <Stack.Screen
-      name={navigationStrings.TAB_ROUTES}
-      options={{
-        headerShown:false
-      }}
-      component={TabRoutes}
-    />
-      </>
-  )
+      <Stack.Screen
+        name={navigationStrings.HOME}
+        component={Home}
+        options={{headerShown: false}}
+      />
+     
+
+    </>
+  );
 }
