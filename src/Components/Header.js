@@ -5,34 +5,39 @@ import navigationStrings from "../constants/navigationStrings";
 
 import {useNavigation} from "@react-navigation/native"
 import colors from "../styles/colors";
+import { connect } from "react-redux";
 
 
-export default function Header({cartCount}) {
+ function Header(props) {
 
     const navigation = useNavigation()
 
+    const cartCount = props.data.length
     
     return (
         <View>
             <StatusBar barStyle="dark-content" backgroundColor={colors.themeColor} />
             <View style={styles.headerBar}>
                 <View style={styles.logoView}>
-                <Text style={{color:colors.white,fontSize:20}}>CART MANAGEMENT</Text>
+                <Image source={imagePath.drawer_icon} style={styles.drawerIcon} resizeMode="contain"/>
+                <Image source={{uri:'https://img10.hkrtcdn.com/10848/bnr_1084799_o.png'}} style={styles.amazonIcon} resizeMode="contain"/>
                 <View style={styles.miceCartIconView}>
                 <Image source={imagePath.notification} style={styles.notificationIcon} resizeMode="contain"/>
                <TouchableOpacity onPress={()=>{
                  navigation.navigate(navigationStrings.CARTPRODUCT);
                }}>
-                  
                 <View>
                     <Text style={styles.cartCount}>{cartCount}</Text>
                 <Image source={imagePath.cart} style={styles.cartIcon} resizeMode="contain"/>
                 </View>
-               
                 </TouchableOpacity>
                 </View>
                 </View>
-                
+                <View style={styles.searchBarView}>
+                    <Image source={imagePath.search_icon} style={styles.searchIcon} resizeMode="contain"/>
+                    <TextInput style={styles.searcTextInput} placeholder="Search"></TextInput>
+                    <Image source={imagePath.microphone_icon} style={styles.cameraIcon} resizeMode="contain"/>
+                </View>
             </View>
 
         </View>
@@ -40,8 +45,8 @@ export default function Header({cartCount}) {
 }
 const styles=StyleSheet.create({
     headerBar:{
-        height:50,
-        backgroundColor:colors.themeColor,
+        height:110,
+        backgroundColor:colors.white,
         alignItems:'center',
       
     },
@@ -83,7 +88,8 @@ const styles=StyleSheet.create({
     drawerIcon:{
         height:30,
         width:30,
-        marginVertical:13
+        marginVertical:13,
+        tintColor:colors.themeColor
     },
     amazonIcon:{
         height:50,
@@ -103,12 +109,14 @@ const styles=StyleSheet.create({
     cartIcon:{
         height:50,
         width:50,
-        position:'relative'
+        position:'relative',
+        tintColor:colors.themeColor
     },notificationIcon:{
         height:20,
         width:20,
         right:'15%',
-        position:'relative'
+        position:'relative',
+        tintColor:colors.themeColor
     },
  
     cartCount:{
@@ -119,3 +127,11 @@ const styles=StyleSheet.create({
         color:'red'
     }
 })
+
+const mapStateToProps = function (state) {
+    return {
+      data: state.todo,
+    };
+  };
+  
+  export default connect(mapStateToProps)(Header);

@@ -14,13 +14,12 @@ import {
 import CartItem from '../../Components/CartItem';
 
 import store from '../../redux/store';
-import {ondelete} from '../../redux/actions/actions';
+import {ondelete, onItemAdd, onItemDelete,onInitialPrice} from '../../redux/actions/actions';
 import DetailHeader from '../../Components/CustomHeader';
 import {connect} from 'react-redux';
 
 class CartProduct extends Component {
   state = {
-    cartArray: [],
     isVisible: true,
   };
 
@@ -37,62 +36,17 @@ class CartProduct extends Component {
     );
   };
 
+  componentDidMount(){
+    this.props.initialItemPrice(this.props.data)
+   
+  }
+
   productQuantityIncreament = id => {
-    let newQuantityArray = [...this.props.data];
-
-    const quantityArrayIndex = newQuantityArray.findIndex(
-      item => item.id === id,
-    );
-    let finalQuantityArray = newQuantityArray[quantityArrayIndex];
-
-    finalQuantityArray.quantity += 1;
-
-    console.log(finalQuantityArray.quantity);
-
-    let total = 0;
-
-    for (let i = 0; i < newQuantityArray.length; i++) {
-      total += newQuantityArray[i].price * newQuantityArray[i].quantity;
-    }
-    console.log(total);
-
-    this.setState({
-      data: finalQuantityArray,
-      total,
-    });
-
-    // console.log(data);
+    this.props.onAdd(id);
   };
 
   productQuantityDecreament = id => {
-    let newQuantityArray = [...this.props.data];
-
-    const quantityArrayIndex = newQuantityArray.findIndex(
-      item => item.id === id,
-    );
-    let finalQuantityArray = newQuantityArray[quantityArrayIndex];
-
-    if (finalQuantityArray.quantity == 1) {
-      // alert('at least one item will in cart');
-      finalQuantityArray.price =
-        finalQuantityArray.price / finalQuantityArray.quantity;
-    } else {
-      finalQuantityArray.quantity -= 1;
-    }
-
-    let total = 0;
-    let tot;
-    for (let i = 0; i < newQuantityArray.length; i++) {
-      total += newQuantityArray[i].price * newQuantityArray[i].quantity;
-    }
-    console.log(total);
-
-    this.setState({
-      data: finalQuantityArray,
-      total,
-    });
-
-    //    console.log(data);
+    this.props.onDelete(id);
   };
 
   onDelete = id => {
@@ -117,14 +71,13 @@ class CartProduct extends Component {
   };
   render() {
     const {newQuantity, total} = this.state;
-    console.log(this.props, 'cart reducer data');
 
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
         <DetailHeader />
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={store.getState().todo}
+          data={this.props.data}
           ListEmptyComponent={this.ListEmptyView}
           renderItem={({item, index}) => (
             <CartItem
@@ -140,7 +93,9 @@ class CartProduct extends Component {
         <TouchableOpacity onPress={this.checkOutScreen}>
           {this.state.isVisible ? (
             <View style={styles.buyNowButtonView}>
-              <Text style={{color: 'white'}}>Place Order:-{total}</Text>
+              <Text style={{color: 'white'}}>
+                Place Order:{this.props.price}
+              </Text>
             </View>
           ) : null}
         </TouchableOpacity>
@@ -177,7 +132,21 @@ const styles = StyleSheet.create({
 const mapStateToProps = function (state) {
   return {
     data: state.todo,
+    price: state.total,
+  };
+};
+const mapDispatchTOProps = dispatch => {
+  return {
+    onAdd: itemIndex => {
+      dispatch(onItemAdd(itemIndex));
+    },
+    onDelete: decrementitemIndex => {
+      dispatch(onItemDelete(decrementitemIndex));
+    },
+    initialItemPrice:arrayWithInitialPrice=>{
+      dispatch(onInitialPrice(arrayWithInitialPrice));
+    }
   };
 };
 
-export default connect(mapStateToProps)(CartProduct);
+export default connect(mapStateToProps, mapDispatchTOProps)(CartProduct);

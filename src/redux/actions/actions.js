@@ -1,8 +1,8 @@
 import ActionTypes from '../types';
 
-export const add = obj => ({
+export const add = (newPostArry, itemIndex) => ({
   type: ActionTypes.ADD,
-  payload: {obj},
+  payload: {newPostArry, itemIndex},
 });
 export const ondelete = id => ({
   type: ActionTypes.DELETE,
@@ -10,8 +10,20 @@ export const ondelete = id => ({
   payload: {id},
 });
 
-export const onupdate = (id, newUpdatedText, status) => ({
-  type: ActionTypes.UPDATE,
+export const onItemAdd = CARTITEM_ID => ({
+  type: ActionTypes.ITEMINCREMENT,
 
-  payload: {id, newUpdatedText, status},
+  payload: {CARTITEM_ID},
+});
+
+export const onItemDelete = REMOVEITEM_ID => ({
+  type: ActionTypes.ITEMDECREMENT,
+
+  payload: {REMOVEITEM_ID},
+});
+
+export const onInitialPrice = arrayWithInitialPrice => ({
+  type: ActionTypes.INITIALPRICE,
+
+  payload: {arrayWithInitialPrice},
 });

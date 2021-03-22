@@ -13,11 +13,14 @@ export default {
   loginchoiceImage:require('../assets/images/loginchoicengImage.jpg'),
   shop:require('../assets/images/shop.png'),
   chat:require('../assets/images/chat.png'),
-  hearPlush:require('../assets/images/heartPulsh.png'),
+  heartPlush:require('../assets/images/heartPulsh.png'),
   visit:require('../assets/images/visit.png'),
   user:require('../assets/images/user.png'),
-  cart:require('../assets/images/cart.png')
-
-  
+  cart:require('../assets/images/cart.png'),
+  flash_sale:require('../assets/images/flash-icon.png'),
+  lock:require('../assets/images/lock.png'),
+  drawer_icon:require('../assets/images/drawer.png'),
+  search_icon:require('../assets/images/search.png'),
+  notification:require('../assets/images/notification.png'),
 
 };

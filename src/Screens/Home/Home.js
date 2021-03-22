@@ -10,6 +10,7 @@ import {
   Modal,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from 'react-native';
 
 import Counter from './../../Components/Counter';
@@ -19,12 +20,16 @@ import ModalView from '../../Components/ModalView';
 import Header from '../../Components/Header';
 import store from '../../redux/store';
 import {connect} from 'react-redux';
+import Carousel from '../../Components/Carousel';
+import BrandedItems from '../../Components/BrandedItems';
+import colors from '../../styles/colors';
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartCount: 0,
+     
       isLoading: true,
       data: '',
       page: 1,
@@ -42,95 +47,96 @@ class Home extends Component {
           id: 0,
           name: 'Execution',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '5.0*',
           image:
-            'https://images-na.ssl-images-amazon.com/images/I/81gnvKXmLsL._UL1500_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/61k44w0LTHL._AC_SL1000_.jpg',
         },
         {
           id: 1,
           name: 'Womens design',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '3.0*',
           image:
-            'https://images-na.ssl-images-amazon.com/images/I/81jITMrPr0L._UL1500_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/612WXGsMUfL._AC_SL1000_.jpg',
         },
         {
           id: 2,
           name: 'Womens Clothing',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '4.5*',
           image:
-            'https://images-na.ssl-images-amazon.com/images/I/61GORvjTJxL._UL1440_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/81h7Omha5cL._AC_SL1500_.jpg',
         },
         {
           id: 3,
           name: 'Brand Collection',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '3.9*',
           image:
-            'https://images-na.ssl-images-amazon.com/images/I/71vtGhTq7rL._UL1500_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/61RRqvqsnhL._AC_SL1360_.jpg',
         },
         {
           id: 4,
           name: 'New Collection',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '4.6*',
           image:
-            'https://images-na.ssl-images-amazon.com/images/I/61QQ3N%2Bvx-L._UL1440_.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/81ALUO15ntL._AC_SL1500_.jpg',
         },
         {
           id: 5,
           name: 'Clothes',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '2.3*',
           image:
-            'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
+            'https://images-na.ssl-images-amazon.com/images/I/61DgIVMTTaL._AC_SL1500_.jpg',
         },
         {
           id: 6,
           name: 'designs',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '1.2*',
           image:
-            'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
+            'https://images-na.ssl-images-amazon.com/images/I/71W1miALQrL._AC_SL1500_.jpg',
         },
         {
           id: 7,
           name: 'Offer',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '2.1*',
           image:
-            'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
+            'https://images-na.ssl-images-amazon.com/images/I/81uGRdSMjOL._AC_SL1500_.jpg',
         },
         {
           id: 8,
           name: 'new Offering',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '2.5*',
           image:
-            'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
+            'https://images-na.ssl-images-amazon.com/images/I/51YZPsXGkpL._AC_SL1037_.jpg',
         },
         {
           id: 9,
           name: 'new Designs',
           price: 100,
-          quantity: 1,
+          quantity: 0,
           rating: '3.4*',
           image:
-            'https://sac.flipkart.net/wp-content/uploads/2017/03/Signature.png',
+            'https://images-na.ssl-images-amazon.com/images/I/81aw8CQDRrL._AC_SL1500_.jpg',
         },
       ],
     };
     console.disableYellowBox = true;
+   
   }
 
   _onChangeText = key => {
@@ -142,104 +148,103 @@ class Home extends Component {
     };
   };
 
-  openModal = () => {
-    const {isModalVisibal} = this.state;
-    this.setState({
-      isModalVisibal: true,
-      isAdd: true,
-    });
-  };
-  openModalForUpdate = id => {
-    const {isModalVisibal} = this.state;
-    this.setState({
-      isModalVisibal: true,
-      isAdd: false,
-      item_id: id,
-    });
-  };
+ 
 
-  onCloseModal = () => {
-    this.setState({isModalVisibal: false});
-  };
+ 
+ 
 
   add = id => {
     const {isModalVisibal, description, brandedItems} = this.state;
     let newPostArry = [...brandedItems];
 
-    var obj = {};
+    
 
-    var obj = {};
-    obj['id'] = newPostArry[id].id;
-    obj['name'] = newPostArry[id].name;
-    obj['price'] = newPostArry[id].price;
-    obj['quantity'] = newPostArry[id].quantity;
-    obj['image'] = newPostArry[id].image;
+    let itemIndex = brandedItems.findIndex(item=>item.id===id)
 
-    store.dispatch(add(obj));
-    console.log(obj.quantity);
+    store.dispatch(add(newPostArry,itemIndex));
+   
 
-    this.setState({
-      cartCount: this.props.data.length+1,
-    });
+  
   };
 
-  onUpdate = () => {
-    const {item_id, title, description} = this.state;
-    console.log(item_id);
-    // this.openModal()
-    store.dispatch(onupdate(item_id, title, description));
-    this.setState({
-      isModalVisibal: false,
-    });
-  };
+ 
+
 
   render() {
     const {
-      isModalVisibal,
-      title,
-      descriptionPlaceholder,
-      isAdd,
+    
       brandedItems,
-      cartCount,
+     
     } = this.state;
-    console.log(this.props, 'reducer data');
+    console.log(this.props.data, 'reducer data');
 
     return (
       <View style={{flex: 1}}>
-        <Header cartCount={cartCount} />
+       
+        <Header/>
+      
 
-        <FlatList
-          data={brandedItems}
+<ScrollView
           showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.id}
-          renderItem={({item, index}) => {
-            return <Counter data={item} onadd={this.add} />;
-          }}
-        />
-        <View style={{position: 'absolute', bottom: 0, right: 0}}></View>
-        {isAdd ? (
-          <ModalView
-            _onChangeText={this._onChangeText}
-            title={title}
-            onCloseModal={this.onCloseModal}
-            isModalVisibal={isModalVisibal}
-            add={this.add}
-            titleplaceholder={this.state.titleplaceholder}
-            descriptionPlaceholder={descriptionPlaceholder}
-            ButtonText={'Add Post'}
-          />
-        ) : (
-          <ModalView
-            _onChangeText={this._onChangeText}
-            title={title}
-            onCloseModal={this.onCloseModal}
-            isModalVisibal={isModalVisibal}
-            add={this.onUpdate}
-            titleplaceholder={this.state.titleplaceholder}
-            descriptionPlaceholder={descriptionPlaceholder}
-            ButtonText={'Update'}
-          />
-        )}
+          style={styles.mainContainer2}>
+          <View>
+            <Carousel />
+          </View>
+          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+          <Text style={{fontSize:18,marginHorizontal:20,marginVertical:5}}>Flash Sale</Text>
+          <View style={{marginHorizontal:20,marginVertical:5,backgroundColor:colors.white,elevation:4,borderRadius:5}}>
+          <Text style={{fontSize:16,margin:5}}>View all</Text>
+          </View>
+          </View>
+          <View style={styles.brandedItems}>
+            <View style={styles.container1}>
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                data={brandedItems}
+                horizontal
+                keyExtractor={(item) => item.name.toString()}
+                ItemSeparatorComponent={() => (
+                  <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
+                )}
+                renderItem={({item}) => (
+                  <BrandedItems data={item} onadd={this.add} />
+                )}
+              />
+            </View>
+          </View>
+          <View style={styles.mainContainer3}>
+            <View style={styles.container}>
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+          <Text style={{fontSize:18,marginHorizontal:20,marginVertical:5}}>Trending Now</Text>
+          <View style={{marginHorizontal:20,marginVertical:5,backgroundColor:colors.white,elevation:4,borderRadius:5}}>
+          <Text style={{fontSize:16,margin:5}}>View all</Text>
+          </View>
+          </View>
+              <View style={styles.container1}>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  data={brandedItems}
+                  horizontal
+                  keyExtractor={(item) => item.name.toString()}
+                  ItemSeparatorComponent={() => (
+                    <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
+                  )}
+                  
+                  renderItem={({item}) => (
+                    <BrandedItems
+                      data={item}
+                      onadd={this.add}
+                    />
+                  )}
+                />
+              </View>
+            </View>
+          </View>
+         
+         
+        </ScrollView>
+       
+       
       </View>
     );
   }

@@ -5,4 +5,8 @@ export {default as OuterScreen} from './OuterScreen/OuterScreen';
 export {default as LandingPage} from './LandingScreen/LandingPage';
 export {default as Home} from './Home/Home';
 export {default as CartProduct} from './CartProduct/CartProduct';
+export {default as Consult} from './Consult/Consult';
+export {default as Workout} from './Workout/Workout';
+export {default as Visit} from './Visit/Visit';
+export {default as Profile} from './Profile/Profile';
 
