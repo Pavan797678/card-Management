@@ -2,16 +2,19 @@ import ActionTypes from '../types';
 
 const initialState = {
   todo: [],
-  total:0
+  total: 0,
+  userData:{}
 };
 export default function CartReducer(state = initialState, action) {
+  
+
   switch (action.type) {
     case ActionTypes.ADD:
-      const {newPostArry, itemIndex} = action.payload;
+      const {itemdata} = action.payload;
 
-      if (!state.todo.includes(newPostArry[itemIndex])) {
-        newPostArry[itemIndex].quantity += 1;
-        todo = [...state.todo, newPostArry[itemIndex]];
+      if (!state.todo.includes(itemdata)) {
+        itemdata.quantity += 1;
+        todo = [...state.todo, itemdata];
       }
       return {
         ...state,
@@ -21,19 +24,16 @@ export default function CartReducer(state = initialState, action) {
     case ActionTypes.DELETE:
       newArray = state.todo;
       newArray = newArray.filter(item => action.payload.id !== item.id);
-     
 
-      let decrementedpriceAfterDeleteProduct=0;
+      let decrementedpriceAfterDeleteProduct = 0;
       for (let i = 0; i < newArray.length; i++) {
-       
-        decrementedpriceAfterDeleteProduct += newArray[i].price * newArray[i].quantity;
-       
-         }
+        decrementedpriceAfterDeleteProduct +=
+          newArray[i].price * newArray[i].quantity;
+      }
       return {
         ...state,
         todo: newArray,
-        total:decrementedpriceAfterDeleteProduct
-      
+        total: decrementedpriceAfterDeleteProduct,
       };
 
     case ActionTypes.UPDATE:
@@ -59,26 +59,22 @@ export default function CartReducer(state = initialState, action) {
       );
       let finalQuantityArray = newQuantityArray[quantityArrayIndex];
 
-      
-
       finalQuantityArray.quantity += 1;
 
       let array = [...newQuantityArray];
 
-      let price=0;
+      let price = 0;
       for (let i = 0; i < newQuantityArray.length; i++) {
-       
         price += newQuantityArray[i].price * newQuantityArray[i].quantity;
-       
-         }
-        
+      }
+
       return {
         ...state,
         todo: array,
-        total:price
+        total: price,
       };
 
-      case ActionTypes.ITEMDECREMENT:
+    case ActionTypes.ITEMDECREMENT:
       let previousQuantityArray = [...state.todo];
 
       const quantityArrayIndex1 = previousQuantityArray.findIndex(
@@ -86,48 +82,46 @@ export default function CartReducer(state = initialState, action) {
       );
       let decrementQuantityArray = previousQuantityArray[quantityArrayIndex1];
 
-      console.log(decrementQuantityArray.quantity);
-
-      if(decrementQuantityArray.quantity===1){
-        decrementQuantityArray.price = decrementQuantityArray.price/decrementQuantityArray.quantity
-      }else{
+      if (decrementQuantityArray.quantity === 1) {
+        decrementQuantityArray.price =
+          decrementQuantityArray.price / decrementQuantityArray.quantity;
+      } else {
         decrementQuantityArray.quantity -= 1;
       }
-       
-      
-     
+
       let decrementarray = [...previousQuantityArray];
 
-      let decrementedprice=0;
+      let decrementedprice = 0;
       for (let i = 0; i < previousQuantityArray.length; i++) {
-       
-        decrementedprice += previousQuantityArray[i].price * previousQuantityArray[i].quantity;
-       
-         }
+        decrementedprice +=
+          previousQuantityArray[i].price * previousQuantityArray[i].quantity;
+      }
 
       return {
         ...state,
         todo: decrementarray,
-        total:decrementedprice
+        total: decrementedprice,
       };
 
-      
-      case ActionTypes.INITIALPRICE:
-        let initialarray = [...action.payload.arrayWithInitialPrice];
+    case ActionTypes.INITIALPRICE:
+      let initialarray = [...action.payload.arrayWithInitialPrice];
 
-        let initialPrice=0;
-        for (let i = 0; i < initialarray.length; i++) {
-         
-          initialPrice += initialarray[i].price * initialarray[i].quantity;
-         
-           }
-           console.log(action.payload.arrayWithInitialPrice)
-     
+      let initialPrice = 0;
+      for (let i = 0; i < initialarray.length; i++) {
+        initialPrice += initialarray[i].price * initialarray[i].quantity;
+      }
+
       return {
         ...state,
-         total:initialPrice
+        total: initialPrice,
       };
 
+      case ActionTypes.LOGIN:
+        const{userData}=action.payload
+        return{
+          ...state,
+          userData:userData
+        }
 
     default:
       return state;

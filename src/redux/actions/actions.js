@@ -1,8 +1,8 @@
 import ActionTypes from '../types';
 
-export const add = (newPostArry, itemIndex) => ({
+export const add = (itemdata) => ({
   type: ActionTypes.ADD,
-  payload: {newPostArry, itemIndex},
+  payload: {itemdata},
 });
 export const ondelete = id => ({
   type: ActionTypes.DELETE,

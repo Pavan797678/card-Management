@@ -13,31 +13,29 @@ import {
   ScrollView,
 } from 'react-native';
 
-import Counter from './../../Components/Counter';
+
 import {add} from '../../redux/actions/actions';
 
-import ModalView from '../../Components/ModalView';
+
 import Header from '../../Components/Header';
 import store from '../../redux/store';
 import {connect} from 'react-redux';
 import Carousel from '../../Components/Carousel';
 import BrandedItems from '../../Components/BrandedItems';
 import colors from '../../styles/colors';
-
+import TopCategory from '../../Components/TopCategory';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-     
       isLoading: true,
       data: '',
       page: 1,
       item_id: null,
-
-      title: '',
-      description: '',
-      id: 0,
+     
+     
+      
       isModalVisibal: false,
       titleplaceholder: 'Title',
       descriptionPlaceholder: 'Description',
@@ -134,9 +132,35 @@ class Home extends Component {
             'https://images-na.ssl-images-amazon.com/images/I/81aw8CQDRrL._AC_SL1500_.jpg',
         },
       ],
+
+      topCategories: [
+        {
+          id: 1,
+          productImage: 'https://img2.hkrtcdn.com/13437/normal_1343641_o.png',
+        },
+        {
+          id: 2,
+          productImage: 'https://img8.hkrtcdn.com/13471/normal_1347067_o.png',
+        },
+        {
+          id: 3,
+          productImage: 'https://img10.hkrtcdn.com/13471/normal_1347079_o.png',
+        },
+        {
+          id: 4,
+          productImage: 'https://img4.hkrtcdn.com/13471/normal_1347073_o.png',
+        },
+        {
+          id: 5,
+          productImage: 'https://img2.hkrtcdn.com/13471/normal_1347071_o.png',
+        },
+        {
+          id: 6,
+          productImage: 'https://img6.hkrtcdn.com/13471/normal_1347075_o.png',
+        },
+      ],
     };
     console.disableYellowBox = true;
-   
   }
 
   _onChangeText = key => {
@@ -148,53 +172,46 @@ class Home extends Component {
     };
   };
 
- 
-
- 
- 
-
-  add = id => {
-    const {isModalVisibal, description, brandedItems} = this.state;
-    let newPostArry = [...brandedItems];
-
+  add = itemdata => {
     
-
-    let itemIndex = brandedItems.findIndex(item=>item.id===id)
-
-    store.dispatch(add(newPostArry,itemIndex));
    
 
-  
+    store.dispatch(add(itemdata));
+   
+   
   };
 
- 
 
 
   render() {
-    const {
-    
-      brandedItems,
-     
-    } = this.state;
-    console.log(this.props.data, 'reducer data');
+    const {brandedItems, topCategories} = this.state;
+    // console.log(this.state.clickedItemId, 'reducer data');
 
     return (
       <View style={{flex: 1}}>
-       
-        <Header/>
-      
+        <Header />
 
-<ScrollView
+        <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.mainContainer2}>
           <View>
             <Carousel />
           </View>
-          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-          <Text style={{fontSize:18,marginHorizontal:20,marginVertical:5}}>Flash Sale</Text>
-          <View style={{marginHorizontal:20,marginVertical:5,backgroundColor:colors.white,elevation:4,borderRadius:5}}>
-          <Text style={{fontSize:16,margin:5}}>View all</Text>
-          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text
+              style={{fontSize: 18, marginHorizontal: 20, marginVertical: 5}}>
+              Flash Sale
+            </Text>
+            <View
+              style={{
+                marginHorizontal: 20,
+                marginVertical: 5,
+                backgroundColor: colors.white,
+                elevation: 4,
+                borderRadius: 5,
+              }}>
+              <Text style={{fontSize: 16, margin: 5}}>View all</Text>
+            </View>
           </View>
           <View style={styles.brandedItems}>
             <View style={styles.container1}>
@@ -202,49 +219,79 @@ class Home extends Component {
                 showsHorizontalScrollIndicator={false}
                 data={brandedItems}
                 horizontal
-                keyExtractor={(item) => item.name.toString()}
+                keyExtractor={item => item.name.toString()}
                 ItemSeparatorComponent={() => (
                   <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
                 )}
-                renderItem={({item}) => (
-                  <BrandedItems data={item} onadd={this.add} />
+                renderItem={({item,index}) => (
+                  <BrandedItems data={item} index={index} onadd={this.add} />
                 )}
               />
             </View>
           </View>
           <View style={styles.mainContainer3}>
             <View style={styles.container}>
-            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-          <Text style={{fontSize:18,marginHorizontal:20,marginVertical:5}}>Trending Now</Text>
-          <View style={{marginHorizontal:20,marginVertical:5,backgroundColor:colors.white,elevation:4,borderRadius:5}}>
-          <Text style={{fontSize:16,margin:5}}>View all</Text>
-          </View>
-          </View>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    marginHorizontal: 20,
+                    marginVertical: 5,
+                  }}>
+                  Trending Now
+                </Text>
+                <View
+                  style={{
+                    marginHorizontal: 20,
+                    marginVertical: 5,
+                    backgroundColor: colors.white,
+                    elevation: 4,
+                    borderRadius: 5,
+                  }}>
+                  <Text style={{fontSize: 16, margin: 5}}>View all</Text>
+                </View>
+              </View>
               <View style={styles.container1}>
                 <FlatList
                   showsHorizontalScrollIndicator={false}
                   data={brandedItems}
                   horizontal
-                  keyExtractor={(item) => item.name.toString()}
+                  keyExtractor={item => item.name.toString()}
                   ItemSeparatorComponent={() => (
                     <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
                   )}
-                  
                   renderItem={({item}) => (
-                    <BrandedItems
-                      data={item}
-                      onadd={this.add}
-                    />
+                    <BrandedItems data={item} onadd={this.add} />
                   )}
                 />
               </View>
             </View>
           </View>
-         
-         
+          <View style={styles.mainContainer3}>
+            <View style={styles.container}>
+              <View style={{alignItems: 'center'}}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    marginHorizontal: 20,
+                    marginVertical: 5,
+                  }}>
+                  Top Category
+                </Text>
+              </View>
+              <View style={styles.container1}>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  data={topCategories}
+                  numColumns={2}
+                  keyExtractor={item => item.id}
+                  renderItem={({item}) => <TopCategory data={item} />}
+                />
+              </View>
+            </View>
+          </View>
         </ScrollView>
-       
-       
       </View>
     );
   }
@@ -261,7 +308,7 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = function (state) {
   return {
-    data: state.todo,
+    array: state.todo,
   };
 };
 

@@ -1,146 +1,167 @@
-import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import {useState} from 'react/cjs/react.development';
+import React, {Component} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  TextInput,
+  Button,
+  Platform,
+} from 'react-native';
+
+import navigationStrings from '../../constants/navigationStrings';
+import api from '../../redux/actions/index';
+import {showMessage, hideMessage} from 'react-native-flash-message';
+import Loader from '../../Components/Loader';
+
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import BorderTextInput from '../../Components/BorderTextInput';
-import ButtonWithLoader from '../../Components/ButtonWithLoader';
-import GradientButton from '../../Components/GradientButton';
-import WrapperContainer from '../../Components/WrapperContainer';
-import strings from '../../constants/lang';
+
+import styles from './styles';
 import {
   moderateScaleVertical,
-  moderateScale,
+ 
 } from '../../styles/responsiveSize';
-import styles from './styles';
-import {otpTimerCounter} from '../../utils/helperFunctions';
-import colors from '../../styles/colors';
-import fontFamily from '../../styles/fontFamily';
+import strings from '../../constants/lang';
 import imagePath from '../../constants/imagePath';
-import navigationStrings from '../../constants/navigationStrings';
-const CELL_COUNT = 4;
-export default function OtpVerification({navigation}) {
-  const [state, setState] = useState({
-    timer: 100,
-    otp: '',
-    
-  });
+import GradientButton from '../../Components/GradientButton';
+import WrapperContainer from '../../Components/WrapperContainer';
+import colors from '../../styles/colors';
 
-  const updateState = data => setState(state => ({...state, ...data,
-   
-  }
-  ));
-  //TO SHOW THE TIMER SO THAT USER HAS TO WAIT FOR A WHILE BEFORE REQUSTING A NEW OTP AND HE DON'T KEEP ON REQUESTING OTP AGAIN AND AGAIN
-  useEffect(() => {
-    let timerId;
-    if (timer > 0) {
-      timerId = setTimeout(() => {
-        updateState({timer: timer - 1});
-      }, 1000);
-    }
+const CELL_COUNT = 5;
+export default class OtpVerification extends Component {
+  constructor(props) {
+    super(props);
 
-    return () => {
-      if (timerId) clearTimeout(timerId);
+    this.state = {
+      userOtp: '',
+      isLoading: false,
     };
-  }, [state.timer]);
 
-  //RESTING THE TIMER AND REQUEST FOR NEW OTP
-  const _onResend = () => {
-    updateState({timer: 120});
+    console.log(this.state.userOtp);
+  }
+
+  _onChangeText(key) {
+    return value => {
+      this.setState({
+        [key]: value,
+      });
+    };
+  }
+
+  verifyOtp = () => {
+    const {userId} = this.props.route.params;
+    const {userOtp} = this.state;
+    const {navigation} = this.props;
+    this.setState({
+      isLoading: true,
+    });
+
+    api
+      .verifyOtp({
+        userId,
+        otp: userOtp,
+        deviceToken: '123',
+        registerFrom: Platform.OS.toUpperCase(),
+      })
+      .then(res => {
+        console.log(JSON.stringify(res));
+
+        this.setState({
+          isLoading: false,
+        });
+
+        showMessage({
+          type: 'success',
+          message: 'Otp Verification Successful',
+          icon: 'success',
+        });
+
+        navigation.navigate(navigationStrings.TAB_ROUTES);
+      })
+      .catch(error => {
+        this.setState({
+          isLoading: false,
+        });
+
+        showMessage({
+          type: 'danger',
+          message: 'Otp Verification Faild',
+          icon: 'danger',
+        });
+        console.log(JSON.stringify(error));
+      });
   };
 
-  const onChangeOtp = otp => {
-    updateState({otp});
-  };
-  //THIS ARE DEFAULT METHOD REQUIRED BY OTP MODULE TO WORK PROPERLY INCASE MOVE FROM ON BOX TO ANOTHER OR INCASE OF BLUR
-  const ref = useBlurOnFulfill({otp: state.otp, cellCount: CELL_COUNT});
-  const [propsOtp = props, getCellOnLayoutHandler] = useClearByFocusCell({
-    value: state.otp,
-    setValue: onChangeOtp,
-  });
-
-  const onVerifyOtp = () => {
-    const {otp} = state;
-    alert(otp);
-  };
-
-  const {timer} = state;
-  return (
-    <WrapperContainer statusBarColor={colors.themeColor}>
-      <View style={styles.backContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack(null)}
-          style={{alignSelf: 'flex-start',flexDirection:'row'}}>
-          <Image source={imagePath.back} />
+  render() {
+    const {userOtp, isLoading} = this.state;
+    const{navigation}=this.props
+     
+    return (
+      <WrapperContainer statusBarColor={colors.themeColor}>
+        <View style={styles.backContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack(null)}
+            style={{alignSelf: 'flex-start'}}>
+            <Image source={imagePath.back} />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            marginTop: moderateScaleVertical(88),
+            
+          }}>
           <Text style={styles.header}>{strings.OTP_VERIFICATION}</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          flex: 1,
-          marginTop: moderateScaleVertical(88),
-          marginHorizontal: moderateScale(24),
-        }}>
-       
-        <Text style={styles.txtSmall}>{strings.ENTER_OTP_SENT}</Text>
-        <View style={{height: moderateScaleVertical(50)}} />
-        <CodeField
-          ref={ref}
-          {...propsOtp}
-          value={state.otp}
-          onChangeText={onChangeOtp}
-          cellCount={CELL_COUNT}
-          rootStyle={styles.root}
-          blurOnSubmit
-          keyboardType="number-pad"
-          textContentType="oneTimeCode"
-          selectionColor={colors.themeColor}
-          renderCell={({index, symbol, isFocused}) => (
-            <Text
-              key={index}
-              style={[styles.cell, isFocused && styles.focusCell]}
-              onLayout={getCellOnLayoutHandler(index)}>
-              {symbol || (isFocused ? <Cursor /> : null)}
-            </Text>
-          )}
-        />
-        <View style={{alignItems:'center'}}>
-              <ButtonWithLoader btnText={'Verify Otp'} />
-            </View>
-        {timer > 0 ? (
-          <View style={styles.bottomContainer}>
-            <Text style={{...styles.txtSmall, color: colors.textGreyLight}}>
-              {strings.RESEND_CODE_IN}
+          <Text style={styles.txtSmall}>{strings.ENTER_OTP_SENT}</Text>
+          <View style={{height: moderateScaleVertical(50)}} />
+          <CodeField
+            value={userOtp}
+            onChangeText={this._onChangeText('userOtp')}
+            cellCount={CELL_COUNT}
+            rootStyle={styles.root}
+            blurOnSubmit
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            selectionColor={colors.themeColor}
+            renderCell={({index, symbol, isFocused}) => (
               <Text
-                style={{
-                  color: colors.themeColor,
-                  fontFamily: fontFamily.futuraBtHeavy,
-                }}>
-                {`${otpTimerCounter(timer)} min`}
+                key={index}
+                style={[styles.cell, isFocused && styles.focusCell]}>
+                {symbol || (isFocused ? <Cursor /> : null)}
               </Text>
-            </Text>
+            )}
+          />
+          <View style={{alignItems:'center'}}>
+          <GradientButton
+            onPress={this.verifyOtp}
+            containerStyle={{marginTop: moderateScaleVertical(10)}}
+            btnText={strings.VERIFY_ACCOUNT}
+          />
           </View>
-        ) : (
-          <View style={styles.bottomContainer}>
-            <Text style={{...styles.txtSmall, color: colors.textGreyLight}}>
-              {strings.DIDNT_GET_OTP}
-              <Text
-                onPress={_onResend}
-                style={{
-                  color: colors.themeColor,
-                  fontFamily: fontFamily.futuraBtHeavy,
-                }}>
-                {' '}
-                {strings.RESEND_CODE}
-              </Text>
-            </Text>
-          </View>
-        )}
-      </View>
-    </WrapperContainer>
-  );
+        </View>
+        <Loader isLoading={isLoading}/>
+      </WrapperContainer>
+
+      // <View>
+      //   <View style={{marginHorizontal: 20}}>
+      //     <TextInputWithLabel
+      //       label={'OTP'}
+      //       placeholder={'OTP'}
+      //       onChangeText={this._onChangeText('userOtp')}
+      //       value={userOtp}
+      //     />
+      //   </View>
+      //   <View style={{alignItems: 'center'}}>
+      //     <ButtonWithLoader btnText={'Verify Otp'} onPress={this.verifyOtp} />
+      //   </View>
+      //   <Loader isLoading={isLoading}/>
+      // </View>
+    );
+  }
 }

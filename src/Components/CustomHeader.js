@@ -22,7 +22,7 @@ function DetailHeader(props) {
       <StatusBar barStyle="dark-content" backgroundColor={colors.themeColor} />
       <View style={{marginVertical: 10, flexDirection: 'row'}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image style={styles.logo1} source={imagePath.backarrow} />
+          <Image style={styles.logo1} source={imagePath.backWithSquare} />
         </TouchableOpacity>
         <Text style={styles.titleText}>Cart</Text>
       </View>
@@ -60,12 +60,13 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   logo1: {
-    height: 16,
-    width: 20,
+    height: 28,
+    width: 28,
     marginHorizontal: 4,
     marginVertical: 6,
     resizeMode: 'contain',
     marginStart: 15,
+    tintColor:colors.white
   },
   titleText: {
     color: '#fff',

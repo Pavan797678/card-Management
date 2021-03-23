@@ -11,22 +11,26 @@ import types from './src/redux/types';
 
 
 const App = () => {
+
+
+
+
+
   useEffect(() => {
     (async () => {
       const userData = await getUserData();
-      console.log("user data", userData)
-      const { dispatch } = store;
-      if (userData && !!userData.token) {
-        console.log("enter")
-        dispatch({
+        store.dispatch({
           type: types.LOGIN,
-          payload: userData,
+          payload: {userData}
+          
         });
+       
 
-      }
-      // setTimeout(()=>{
-      //   SplashScreen.hide();
-      // },600)
+     
+
+
+      
+     
       
     })();
 

@@ -2,23 +2,23 @@ import types from "../types";
 
 const initial_state = {
     userData: {},
-    internetConnection: false
+   
 
 }
 
-export default function (state = initial_state, action) {
+export default function Auth(state = initial_state, action) {
+   alert()
+    console.log(action.type,"dsvjbksb vablVWVOBGOlov VL--------")
 
     switch (action.type) {
+       
         case types.LOGIN: {
-            const data = action.payload
-            return { userData: data };
-        }
+            const {user} = action.payload
+           
+            return { userData: user };
 
-        case types.NO_INTERNET: {
-            const internetConnection = action.payload.internetConnection
-            return { ...state, internetConnection }
         }
-
+  
         default: {
             return { ...state }
         }

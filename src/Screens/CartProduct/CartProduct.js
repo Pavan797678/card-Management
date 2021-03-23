@@ -21,6 +21,7 @@ import {connect} from 'react-redux';
 class CartProduct extends Component {
   state = {
     isVisible: true,
+   
   };
 
   ListEmptyView = () => {

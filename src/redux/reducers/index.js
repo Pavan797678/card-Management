@@ -1,16 +1,15 @@
 import { combineReducers } from 'redux';
 import auth from "./auth";
-import appTheme from "./appTheme";
+
 import types from '../types';
-import CartReducer from './reducer';
+import cartReducer from './cart';
 
 
 
 
 const appReducer = combineReducers({
     auth,
-    appTheme,
-    CartReducer
+    cartReducer
 
 });
 

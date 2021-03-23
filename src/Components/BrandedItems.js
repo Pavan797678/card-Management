@@ -1,14 +1,25 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image,TouchableWithoutFeedback,TouchableOpacity} from 'react-native';
+import { connect } from 'react-redux';
 import imagePath from '../constants/imagePath';
 import colors from '../styles/colors';
 
 
-function BrandedItems({data,onadd}) {
+
+function BrandedItems(props) {
+
+   const {data,onadd,itemdata}=props
+
+    
+  
+     
+  
+     
+     
   
   return (
    
-    <TouchableWithoutFeedback onLongPress={() => actionOnRow(data.id)}>
+    <TouchableWithoutFeedback onLongPress={() => onadd(data.id)}>
     <View style = {styles.itemStyle} >
     <Image  source={imagePath.flash_sale}></Image>
         <Image style={styles.productImages} source={{uri:data.image}}></Image>
@@ -18,11 +29,11 @@ function BrandedItems({data,onadd}) {
         <Image style={{height:20,width:20}} source={imagePath.lock}></Image>
         </View>
         <View style={{justifyContent:'center',alignItems:'center'}}>
-        <View style={styles.addPost}>
-          <TouchableOpacity onPress={() => onadd(data.id)}>
+         {itemdata.includes(data)?<View style={{backgroundColor:colors.textBlue,height:40,justifyContent:'center'}}><Text style={{color:colors.white,marginHorizontal:5}}>Check Cart Section Now</Text></View>:<View style={styles.addPost}>
+          <TouchableOpacity onPress={() => onadd(data)}>
             <Text style={{color:colors.white}}>ADD TO CART</Text>
           </TouchableOpacity>
-        </View>
+        </View>}
         </View>
     </View>
     </TouchableWithoutFeedback>
@@ -91,4 +102,10 @@ const styles = StyleSheet.create({
   
 });
 
-export default BrandedItems;
+const mapStateToProps = function (state) {
+  return {
+    itemdata: state.todo,
+  };
+};
+
+export default connect(mapStateToProps) (BrandedItems);

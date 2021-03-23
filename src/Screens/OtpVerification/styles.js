@@ -31,7 +31,7 @@ export default StyleSheet.create({
   },
 
   root: {
-    marginHorizontal: moderateScale(16),
+    marginHorizontal: moderateScale(8),
     marginVertical: 30,
     justifyContent: 'space-between',
   },

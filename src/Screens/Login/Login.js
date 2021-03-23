@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from 'react-native';
 import ButtonWithImage from '../../Components/ButtonWithImage';
 import ButtonWithLoader from '../../Components/ButtonWithLoader';
 import validator from '../../utils/validations';
@@ -10,78 +17,94 @@ import navigationStrings from '../../constants/navigationStrings';
 import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
 import api from '../../redux/actions/index';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 import {
   moderateScaleVertical,
   moderateScale,
 } from '../../styles/responsiveSize';
+import Loader from '../../Components/Loader';
 
 export default class Login extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      userEmail: '',
+      userMobile: '',
       userPassword: '',
       isLoading: false,
-      screenName:'Login',
-     
+      screenName: 'Login',
     };
   }
 
-  
-
   _onChangeText(key) {
-    return (value) => {
+    return value => {
       this.setState({
         [key]: value,
       });
     };
   }
   isValidData = () => {
-    const {userEmail, userPassword} = this.state;
+    const {userMobile} = this.state;
     const error = validator({
-      email: userEmail,
-      password: userPassword,
+      phoneNumber: userMobile,
+     
     });
     if (error) {
-       alert('enter valid data')
+      showMessage({
+        type: 'danger',
+        message: 'Please Enter Valid Mobile Number',
+        icon: 'danger',
+      });
       return false;
     }
     return true;
   };
 
   mainLogin = () => {
-    const {userEmail, userPassword} = this.state;
+    const {userMobile, userPassword} = this.state;
     const {navigation} = this.props;
-    if (this.isValidData()) {
-      this.setState({
-        isLoading: true,
-      });
-      api
-        .login({
-          email: userEmail,
-          password: userPassword,
-        })
-        .then((res) => {
-          console.log(JSON.stringify(res));
+     if (this.isValidData()) {
+    this.setState({
+      isLoading: true,
+    });
+    api
+      .login({
+        contactDetails: {
+          phoneNo: userMobile,
+          countryCode: '+91',
+          countryCodeISO: 'IN',
+        },
+      })
+      .then(res => {
+        console.log(JSON.stringify(res));
 
-          this.setState({
-            isLoading: false,
-          });
-          alert('login Success')
-          navigation.navigate(navigationStrings.HOME)
-              
-        })
-        .catch((error) => {
-          this.setState({
-            isLoading: false,
-          });
-          alert('login Error')
-          console.log(JSON.stringify(error));
+        this.setState({
+          isLoading: false,
         });
-    }
+
+        showMessage({
+          type: 'success',
+          message: 'Otp Send Successfully',
+          icon: 'success',
+        });
+        navigation.navigate(navigationStrings.OTP_VERIFICATION, {
+          userId: res.data.userId,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          isLoading: false,
+        });
+        showMessage({
+          type: 'danger',
+          message: 'error',
+          icon: 'danger',
+        });
+
+        console.log(JSON.stringify(error));
+      });
+     }
   };
 
   onmove = () => {
@@ -89,6 +112,7 @@ export default class Login extends Component {
     navigation.navigate(navigationStrings.SIGN_UP);
   };
   render() {
+    const {isLoading, userMobile} = this.state;
     return (
       <WrapperContainer statusBarColor={colors.themeColor}>
         <View style={{flex: 1, backgroundColor: colors.white}}>
@@ -97,19 +121,15 @@ export default class Login extends Component {
               marginHorizontal: 15,
               marginTop: moderateScaleVertical(15),
             }}>
-            <TextInput
-            style={styles.emailField}
-            placeholder={'Email'}
-            onChangeText={this._onChangeText('userEmail')}
-          />
-          <TextInput
-            style={styles.birthDateField}
-            placeholder={'Password'}
-            onChangeText={this._onChangeText('userPassword')}
-          />
-            <View style={{alignItems:'center'}}>
-               
-              <ButtonWithLoader btnText={'login'} onPress={this.mainLogin}/>
+            <TextInputWithLabel
+              label={'Mobile No'}
+              placeholder={'Mobile No'}
+              onChangeText={this._onChangeText('userMobile')}
+              value={userMobile}
+            />
+
+            <View style={{alignItems: 'center'}}>
+              <ButtonWithLoader btnText={'login'} onPress={this.mainLogin} />
             </View>
           </View>
 
@@ -118,8 +138,7 @@ export default class Login extends Component {
             <Text style={styles.orText}>OR</Text>
             <View style={styles.hyphen} />
           </View>
-          <View
-            style={styles.socialButton}>
+          <View style={styles.socialButton}>
             <View
               style={{width: '46%', borderWidth: 1, borderColor: colors.blue}}>
               <ButtonWithImage
@@ -155,6 +174,7 @@ export default class Login extends Component {
             </TouchableOpacity>
           </View>
         </View>
+        <Loader isLoading={isLoading} />
       </WrapperContainer>
     );
   }
@@ -192,11 +212,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: moderateScaleVertical(20),
   },
-  socialButton:{
+  socialButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
     marginHorizontal: 20,
     marginVertical: 20,
-  }
+  },
 });

@@ -15,7 +15,7 @@ const LoadingComponent = () => (
     <BarIndicator size={25} color={colors.themeMain} />
   </View>
 );
-const Loader = ({isLoading = false, withModal}) => {
+const Loader = ({isLoading, withModal}) => {
   if (withModal) {
     return (
       <Modal transparent visible={isLoading}>

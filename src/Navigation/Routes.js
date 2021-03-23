@@ -7,32 +7,30 @@ import {connect} from 'react-redux';
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
 
-
-
 const Stack = createStackNavigator();
 
-export default function Routes(props) {
-
-  const {data}= props
-  console.log(data,"async storge data in routes")
+function Routes(props) {
+  const {logedInUser} = props;
   
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* {AuthStack(Stack)} */}
-      {MainStack(Stack)}
-       </Stack.Navigator>
+        {!logedInUser && AuthStack(Stack)}
+        {MainStack(Stack)}
+    
+     
+       
+      
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 const mapStateToProps = function (state) {
- 
   return {
-    data: state.Auth.userData
+    logedInUser:state.userData
   };
 };
 
- connect(mapStateToProps)(Routes)
-
-
+export default connect(mapStateToProps)(Routes);
