@@ -49,9 +49,9 @@ export default function CelebrityLoader({
         }}>
         {contentCard()}
         {contentCard()}
-        {contentCard()}
+       
       </View>
     );
   }
-  return contentCard();
+  return <></>;
 }

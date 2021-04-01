@@ -1,6 +1,6 @@
 import ActionTypes from '../types';
 
-export const add = (itemdata) => ({
+export const add = itemdata => ({
   type: ActionTypes.ADD,
   payload: {itemdata},
 });

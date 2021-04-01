@@ -1,42 +1,30 @@
-
-import React, { useEffect } from 'react';
+import React, {Component} from 'react';
 // import SplashScreen from 'react-native-splash-screen'
-import { Provider } from 'react-redux';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import FlashMessage from 'react-native-flash-message';
 import Routes from './src/Navigation/Routes';
 import store from './src/redux/store';
-import { getUserData } from './src/utils/utils';
+import {getUserData} from './src/utils/utils';
 import types from './src/redux/types';
 
 
-const App = () => {
 
+ export default class App extends Component{
+  
 
-
-
-
-  useEffect(() => {
+  componentDidMount(){
+    
     (async () => {
       const userData = await getUserData();
-        store.dispatch({
-          type: types.LOGIN,
-          payload: {userData}
-          
-        });
-       
-
-     
-
-
-      
-     
-      
+      store.dispatch({
+        type: types.LOGIN,
+        payload: {userData},
+      });
     })();
+  }
 
-    return () => { };
-  }, []);
-
+render(){
   return (
     <SafeAreaProvider>
       <Provider store={store}>
@@ -45,7 +33,9 @@ const App = () => {
       <FlashMessage position="top" />
     </SafeAreaProvider>
   );
+}
+
+ 
 };
 
 
-export default App;

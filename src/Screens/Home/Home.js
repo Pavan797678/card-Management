@@ -33,7 +33,7 @@ class Home extends Component {
       data: '',
       page: 1,
       item_id: null,
-     
+      searchVisible:true,
      
       
       isModalVisibal: false,
@@ -184,12 +184,12 @@ class Home extends Component {
 
 
   render() {
-    const {brandedItems, topCategories} = this.state;
-    // console.log(this.state.clickedItemId, 'reducer data');
-
+    const {brandedItems, topCategories,searchVisible} = this.state;
+     console.log(this.props, 'reducer data');
+console.log(this.props.array);
     return (
       <View style={{flex: 1}}>
-        <Header />
+        <Header searchVisible={searchVisible}/>
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = function (state) {
   return {
-    array: state.todo,
+    array: state
   };
 };
 

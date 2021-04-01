@@ -32,6 +32,9 @@ import imagePath from '../../constants/imagePath';
 import GradientButton from '../../Components/GradientButton';
 import WrapperContainer from '../../Components/WrapperContainer';
 import colors from '../../styles/colors';
+import store from '../../redux/store';
+import { getUserData } from '../../utils/utils';
+
 
 const CELL_COUNT = 5;
 export default class OtpVerification extends Component {
@@ -70,7 +73,14 @@ export default class OtpVerification extends Component {
         registerFrom: Platform.OS.toUpperCase(),
       })
       .then(res => {
-        console.log(JSON.stringify(res));
+        getUserData.then(res=>{
+          store.dispatch({
+            type: types.LOGIN,
+            payload: {res},
+          });
+        }).catch(error=>{
+          console.log(error)
+        })
 
         this.setState({
           isLoading: false,
@@ -97,6 +107,8 @@ export default class OtpVerification extends Component {
         console.log(JSON.stringify(error));
       });
   };
+
+  
 
   render() {
     const {userOtp, isLoading} = this.state;
@@ -147,21 +159,6 @@ export default class OtpVerification extends Component {
         </View>
         <Loader isLoading={isLoading}/>
       </WrapperContainer>
-
-      // <View>
-      //   <View style={{marginHorizontal: 20}}>
-      //     <TextInputWithLabel
-      //       label={'OTP'}
-      //       placeholder={'OTP'}
-      //       onChangeText={this._onChangeText('userOtp')}
-      //       value={userOtp}
-      //     />
-      //   </View>
-      //   <View style={{alignItems: 'center'}}>
-      //     <ButtonWithLoader btnText={'Verify Otp'} onPress={this.verifyOtp} />
-      //   </View>
-      //   <Loader isLoading={isLoading}/>
-      // </View>
     );
   }
 }

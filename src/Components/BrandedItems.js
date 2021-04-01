@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = function (state) {
   return {
-    itemdata: state.todo,
+    itemdata: state.carts.todo,
   };
 };
 

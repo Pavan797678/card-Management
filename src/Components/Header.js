@@ -9,11 +9,13 @@ import { connect } from "react-redux";
 
 
  function Header(props) {
+     const {searchVisible}=props
 
     const navigation = useNavigation()
 
     const cartCount = props.data.length
     
+   if(searchVisible){
     return (
         <View>
             <StatusBar barStyle="dark-content" backgroundColor={colors.themeColor} />
@@ -42,10 +44,41 @@ import { connect } from "react-redux";
 
         </View>
     )
+   }else{
+    return (
+        <View>
+            <StatusBar barStyle="dark-content" backgroundColor={colors.themeColor} />
+            <View style={styles.headerBar1}>
+                <View style={styles.logoView}>
+                <Image source={imagePath.drawer_icon} style={styles.drawerIcon} resizeMode="contain"/>
+                <Image source={{uri:'https://img10.hkrtcdn.com/10848/bnr_1084799_o.png'}} style={styles.amazonIcon} resizeMode="contain"/>
+                <View style={styles.miceCartIconView}>
+                <Image source={imagePath.notification} style={styles.notificationIcon} resizeMode="contain"/>
+               <TouchableOpacity onPress={()=>{
+                 navigation.navigate(navigationStrings.CARTPRODUCT);
+               }}>
+                <View>
+                    <Text style={styles.cartCount}>{cartCount}</Text>
+                <Image source={imagePath.cart} style={styles.cartIcon} resizeMode="contain"/>
+                </View>
+                </TouchableOpacity>
+                </View>
+                </View>
+                
+            </View>
+
+        </View>
+    )
+   }
 }
 const styles=StyleSheet.create({
     headerBar:{
         height:110,
+        backgroundColor:colors.white,
+        alignItems:'center',
+      
+    },   headerBar1:{
+        height:60,
         backgroundColor:colors.white,
         alignItems:'center',
       
@@ -130,7 +163,7 @@ const styles=StyleSheet.create({
 
 const mapStateToProps = function (state) {
     return {
-      data: state.todo,
+      data: state.carts.todo,
     };
   };
   

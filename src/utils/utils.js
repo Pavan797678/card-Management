@@ -5,6 +5,8 @@ import store from '../redux/store';
 import types from '../redux/types';
 import {showError} from './helperFunctions';
 
+
+
 export async function getHeaders() {
   let userData = await AsyncStorage.getItem('userData');
   console.log(userData, 'the user data value ');
@@ -12,7 +14,7 @@ export async function getHeaders() {
     userData = JSON.parse(userData);
     console.log(userData.token, 'header');
     return {
-      authorization: `Bearer ${userData.token}`,
+      authorization: `Bearer ${userData.accessToken}`,
     };
   }
   return {};

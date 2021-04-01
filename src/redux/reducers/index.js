@@ -1,23 +1,14 @@
-import { combineReducers } from 'redux';
-import auth from "./auth";
-
-import types from '../types';
-import cartReducer from './cart';
+import {combineReducers} from 'redux';
+import authreducer from './authreducer';
+import carts from './cart';
 
 
 
 
-const appReducer = combineReducers({
-    auth,
-    cartReducer
+export default combineReducers({
+  authreducer,
+  carts,
+})
 
-});
 
-const rootReducer = (state, action) => {
-    if (action.type == types.CLEAR_REDUX_STATE) {
-        state = undefined;
-    }
-    return appReducer(state, action)
-}
 
-export default rootReducer;

@@ -22,5 +22,6 @@ export default {
   drawer_icon:require('../assets/images/drawer.png'),
   search_icon:require('../assets/images/search.png'),
   notification:require('../assets/images/notification.png'),
+  profile:require('../assets/images/profile.png'),
 
 };

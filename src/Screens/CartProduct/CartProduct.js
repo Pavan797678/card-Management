@@ -14,14 +14,18 @@ import {
 import CartItem from '../../Components/CartItem';
 
 import store from '../../redux/store';
-import {ondelete, onItemAdd, onItemDelete,onInitialPrice} from '../../redux/actions/actions';
+import {
+  ondelete,
+  onItemAdd,
+  onInitialPrice,
+  onItemDelete,
+} from '../../redux/actions/actions';
 import DetailHeader from '../../Components/CustomHeader';
 import {connect} from 'react-redux';
 
 class CartProduct extends Component {
   state = {
     isVisible: true,
-   
   };
 
   ListEmptyView = () => {
@@ -37,17 +41,16 @@ class CartProduct extends Component {
     );
   };
 
-  componentDidMount(){
-    this.props.initialItemPrice(this.props.data)
-   
+  componentDidMount() {
+    store.dispatch(onInitialPrice(this.props.data));
   }
 
   productQuantityIncreament = id => {
-    this.props.onAdd(id);
+    store.dispatch(onItemAdd(id));
   };
 
   productQuantityDecreament = id => {
-    this.props.onDelete(id);
+    store.dispatch(onItemDelete(id));
   };
 
   onDelete = id => {
@@ -71,7 +74,7 @@ class CartProduct extends Component {
     );
   };
   render() {
-    const {newQuantity, total} = this.state;
+    const {newQuantity} = this.state;
 
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -130,24 +133,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-const mapStateToProps = function (state) {
-  return {
-    data: state.todo,
-    price: state.total,
-  };
-};
-const mapDispatchTOProps = dispatch => {
-  return {
-    onAdd: itemIndex => {
-      dispatch(onItemAdd(itemIndex));
-    },
-    onDelete: decrementitemIndex => {
-      dispatch(onItemDelete(decrementitemIndex));
-    },
-    initialItemPrice:arrayWithInitialPrice=>{
-      dispatch(onInitialPrice(arrayWithInitialPrice));
-    }
-  };
+const mapStateToProps =state=> {
+ 
+  return{
+    data:state.carts.todo,
+    price: state.carts.total,
+ 
+  }
+   
+   
 };
 
-export default connect(mapStateToProps, mapDispatchTOProps)(CartProduct);
+export default connect(mapStateToProps)(CartProduct);

@@ -1,13 +1,11 @@
 import ActionTypes from '../types';
 
 const initialState = {
-  todo: [],
+  todo:[],
   total: 0,
-  userData:{}
+  userData: {},
 };
-export default function CartReducer(state = initialState, action) {
-  
-
+export default function cart(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.ADD:
       const {itemdata} = action.payload;
@@ -83,8 +81,11 @@ export default function CartReducer(state = initialState, action) {
       let decrementQuantityArray = previousQuantityArray[quantityArrayIndex1];
 
       if (decrementQuantityArray.quantity === 1) {
-        decrementQuantityArray.price =
-          decrementQuantityArray.price / decrementQuantityArray.quantity;
+        // decrementQuantityArray.price =
+        //   decrementQuantityArray.price / decrementQuantityArray.quantity;
+        previousQuantityArray = previousQuantityArray.filter(
+          item => item.id !== action.payload.REMOVEITEM_ID,
+        );
       } else {
         decrementQuantityArray.quantity -= 1;
       }
@@ -116,12 +117,6 @@ export default function CartReducer(state = initialState, action) {
         total: initialPrice,
       };
 
-      case ActionTypes.LOGIN:
-        const{userData}=action.payload
-        return{
-          ...state,
-          userData:userData
-        }
 
     default:
       return state;
