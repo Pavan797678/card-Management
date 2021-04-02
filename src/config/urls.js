@@ -4,4 +4,5 @@ export const LOGIN = getApiUrl('/user/v1/loginSignupOtp');
 export const SIGNUP = getApiUrl('/user/registerUser');
 export const UPLOAD_IMAGE = getApiUrl('/common/uploadFile');
 export const VERIFYOTP = getApiUrl('/user/v1/verifyOtp');
-export const LOADUSERDATA = getApiUrl('/user/v1/getUserSearch')
+export const LOADUSERDATA = getApiUrl('/user/v1/getUserSearch');
+export const SEARCHUSER = getApiUrl('/user/v1/getUserNearMe')

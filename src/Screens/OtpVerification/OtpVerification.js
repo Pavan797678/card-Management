@@ -33,7 +33,7 @@ import GradientButton from '../../Components/GradientButton';
 import WrapperContainer from '../../Components/WrapperContainer';
 import colors from '../../styles/colors';
 import store from '../../redux/store';
-import { getUserData } from '../../utils/utils';
+import { getUserData,setUserData } from '../../utils/utils';
 
 
 const CELL_COUNT = 5;
@@ -68,19 +68,11 @@ export default class OtpVerification extends Component {
     api
       .verifyOtp({
         userId,
-        otp: userOtp,
-        deviceToken: '123',
-        registerFrom: Platform.OS.toUpperCase(),
+        otp:userOtp,
+        deviceToken:"123",
+        registerFrom:Platform.OS.toUpperCase(),
       })
       .then(res => {
-        getUserData.then(res=>{
-          store.dispatch({
-            type: types.LOGIN,
-            payload: {res},
-          });
-        }).catch(error=>{
-          console.log(error)
-        })
 
         this.setState({
           isLoading: false,
@@ -92,7 +84,10 @@ export default class OtpVerification extends Component {
           icon: 'success',
         });
 
-        navigation.navigate(navigationStrings.TAB_ROUTES);
+    
+
+      
+      
       })
       .catch(error => {
         this.setState({

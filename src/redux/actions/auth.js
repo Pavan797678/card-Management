@@ -1,22 +1,7 @@
-import {
-  apiPost,
-  setUserData,
-} from '../../utils/utils';
+import {apiPost, setUserData} from '../../utils/utils';
 import {SIGNUP, LOGIN, VERIFYOTP} from '../../config/urls';
 import ActionType from '../types';
 import store from '../store';
-
-
-
-
-
-export const loginData = data => {
-  return(
-    store.dispatch({
-      type: ActionType.LOGIN,
-      payload: data,
-}))};
-
 
 export function signUp(data = {}) {
   return new Promise((resolve, reject) => {
@@ -36,8 +21,6 @@ export function login(data = {}) {
   return new Promise((resolve, reject) => {
     apiPost(LOGIN, data)
       .then(res => {
-        // setUserData(res.data)
-
         resolve(res);
       })
       .catch(error => {
@@ -52,8 +35,10 @@ export function verifyOtp(data = {}) {
     apiPost(VERIFYOTP, data)
       .then(res => {
         setUserData(res.data).then(suc => {
-          loginData(res.data)
-         
+          store.dispatch({
+            type: ActionType.LOGIN,
+            payload: res.data,
+          });
         });
 
         resolve(res);
@@ -63,3 +48,9 @@ export function verifyOtp(data = {}) {
       });
   });
 }
+
+export const onLogout = () => ({
+  type: ActionType.LOGOUT,
+
+  payload: {},
+});

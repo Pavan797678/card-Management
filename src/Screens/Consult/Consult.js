@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   FlatList,
-  ActivityIndicator,
   RefreshControl,
 } from 'react-native';
 import Header from '../../Components/Header';

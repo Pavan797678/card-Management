@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import {
   View,
@@ -15,11 +16,23 @@ import Header from '../../Components/Header';
 import ProfileItem from '../../Components/ProfileItem';
 
 import imagePath from '../../constants/imagePath';
+import { onLogout } from '../../redux/actions/auth';
+import store from '../../redux/store';
 import colors from '../../styles/colors';
+import { clearUserData } from '../../utils/utils';
 
 class Profile extends Component {
+
+
+  onLogout =()=>{
+    clearUserData()
+    store.dispatch(onLogout())
+
+  }
+
+
   render() {
-    const {userData} = this.props;
+    const {userData={}} = this.props;
     console.log(userData);
     return (
       <View style={{flex: 1}}>
@@ -33,9 +46,11 @@ class Profile extends Component {
               />
               <View>
                 <Text style={styles.priceDetails}>Pavan Sharma</Text>
-                <Text style={{}}>{userData.contactDetails.phoneNo}</Text>
+                {/* {userData===''?<></>: <Text>{userData.contactDetails.phoneNo}</Text>} */}
+               
               </View>
               <View style={{width: '38%', justifyContent: 'center'}}>
+                <TouchableOpacity onPress={this.onLogout}>
                 <Text
                   style={{
                     textAlign: 'right',
@@ -44,11 +59,12 @@ class Profile extends Component {
                   }}>
                   LOGOUT
                 </Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.lineView}></View>
             <View style={{flexDirection: 'row'}}>
-              <View style={{}}>
+              <View>
                 <Text style={styles.title}>Gender</Text>
                 <Text style={styles.price}>Male</Text>
 
@@ -90,26 +106,26 @@ const styles = StyleSheet.create({
   paymentDetailsView: {
     height: '30%',
     marginHorizontal: 20,
-    backgroundColor: 'white',
+    backgroundColor:colors.white,
     marginTop: 20,
 
     borderRadius: 10,
     elevation: 5,
   },
   priceDetails: {
-    color: 'grey',
+    color:colors.textGreyB,
     fontSize: 18,
     marginTop: 15,
   },
   lineView: {
     height: 0.5,
-    backgroundColor: 'lightgrey',
+    backgroundColor:colors.lightGreyBg,
     marginVertical: 5,
   },
   lineView1: {
     height: 120,
     width: 0.5,
-    backgroundColor: 'lightgrey',
+    backgroundColor:colors.lightGreyBg,
     marginVertical: 5,
   },
   title: {
@@ -123,17 +139,8 @@ const styles = StyleSheet.create({
 
     color: colors.themeColor,
   },
-  totalPrice: {
-    fontSize: 15,
-    marginHorizontal: 15,
-    marginVertical: 15,
-  },
-  deliverycharge: {
-    color: 'green',
-    fontSize: 15,
-    marginHorizontal: 15,
-    marginVertical: 10,
-  },
+ 
+ 
 });
 const mapStateToProps = state => {
   return {

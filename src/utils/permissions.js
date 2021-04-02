@@ -61,13 +61,13 @@ export const locationPermission = () => new Promise(async (resolve, reject) => {
 		PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
 	).then((granted) => {
 		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-			//console.log('You can use the location');
+			// console.log('You can use the location');
 			return resolve('granted');
 		}
-		//console.log('Location permission denied');
+		// console.log('Location permission denied');
 		return reject('Location Permission denied');
 	}).catch((error) => {
-		console.log('Ask Location permission error: ', error);
+		// console.log('Ask Location permission error: ', error);
 		return reject(error);
 	});
 });

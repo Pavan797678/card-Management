@@ -3,16 +3,16 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import { moderateScale, moderateScaleVertical } from '../styles/responsiveSize'
 
 export default function ButtonWithImage(props) {
-    const {bgColor,buttonText,imageSource,isImageVisiable,btnTextColor}=props
+    const {bgColor,buttonText,imageSource,isImageVisiable,btnTextColor ,onUserPress}=props
     return (
        
            <TouchableOpacity style={{
             height:moderateScaleVertical(50),
             justifyContent:'center',
             alignItems:'center',
-           
+           backgroundColor:bgColor
         
-        }}>
+        }} onPress={onUserPress}>
             
               {isImageVisiable  && <Image source={imageSource}
                  style={styles.imageStyle}

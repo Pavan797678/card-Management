@@ -5,7 +5,7 @@ import commonStyles from '../styles/commonStyles';
 
 const {height, width} = Dimensions.get('screen');
 
-export default function ItemList({data}) {
+export default function NearByUsersList({data}) {
   return (
     <View style={styles.container}>
       <View style={styles.cartItemView}>

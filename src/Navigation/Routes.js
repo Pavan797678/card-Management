@@ -12,12 +12,15 @@ const Stack = createStackNavigator();
 function Routes(props) {
   const {logedInUser} = props;
   
+ 
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!logedInUser && AuthStack(Stack)}
-        {MainStack(Stack)}
+        {!!logedInUser.accessToken?<>{MainStack(Stack)}</>:<>
+        {AuthStack(Stack)}
+        </>}
+       
     
      
        

@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 
  function Header(props) {
-     const {searchVisible}=props
+     const {searchVisible,_onChangeText}=props
 
     const navigation = useNavigation()
 
@@ -37,7 +37,7 @@ import { connect } from "react-redux";
                 </View>
                 <View style={styles.searchBarView}>
                     <Image source={imagePath.search_icon} style={styles.searchIcon} resizeMode="contain"/>
-                    <TextInput style={styles.searcTextInput} placeholder="Search"></TextInput>
+                    <TextInput style={styles.searcTextInput} placeholder="Search" onChangeText={_onChangeText}></TextInput>
                     <Image source={imagePath.microphone_icon} style={styles.cameraIcon} resizeMode="contain"/>
                 </View>
             </View>
