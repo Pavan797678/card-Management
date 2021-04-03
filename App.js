@@ -8,6 +8,7 @@ import store from './src/redux/store';
 import {getUserData} from './src/utils/utils';
 import types from './src/redux/types';
 import SplashScreen from 'react-native-splash-screen'
+import requestUserPermission, { messageListener } from './src/utils/notificationServices';
 
 
 
@@ -30,6 +31,9 @@ import SplashScreen from 'react-native-splash-screen'
      })
     
     SplashScreen.hide()
+
+     requestUserPermission();
+  
   }
 
 render(){
