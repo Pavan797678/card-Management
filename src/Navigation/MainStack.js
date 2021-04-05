@@ -1,27 +1,30 @@
 import React from 'react';
-import {CartProduct, Home} from '../Screens';
+import {CartProduct, Chart, Home} from '../Screens';
 import navigationStrings from '../constants/navigationStrings';
-import TabRoutes from "./TabRoutes";
 
-
+import DrawerRoutes from './DrawerRoutes';
 
 export default function (Stack) {
   return (
     <>
-     <Stack.Screen
-      name={navigationStrings.TAB_ROUTES}
-      options={{
-        headerShown:false
-      }}
-      component={TabRoutes}
-    />
-        <Stack.Screen
+      <Stack.Screen
+        name={navigationStrings.DRAWER_ROUTES}
+        options={{
+          headerShown: false,
+        }}
+        component={DrawerRoutes}
+      />
+
+      <Stack.Screen
         name={navigationStrings.CARTPRODUCT}
         component={CartProduct}
         options={{headerShown: false}}
       />
-     
-
+      <Stack.Screen
+        name={navigationStrings.CHART}
+        component={Chart}
+        options={{headerShown: false}}
+      />
     </>
   );
 }

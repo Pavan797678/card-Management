@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import ButtonWithImage from '../../Components/ButtonWithImage';
 import Header from '../../Components/Header';
 import CircularLoader from '../../Components/Loaders/CircularLoader';
@@ -97,17 +97,21 @@ export default class Visit extends Component {
     const {searchVisible, usersListNearByMe, isLoading} = this.state;
     return (
       <View style={{flex: 1}}>
+        
         <Header
           searchVisible={searchVisible}
           _onChangeText={this._onChangeText('searchUser')}
+          isLoading={isLoading}
         />
+     
+       
         <ButtonWithImage
           bgColor={colors.themeColor}
           buttonText={'Find Users Near By Me'}
           btnTextColor={colors.white}
           imageSource={imagePath.search_icon}
           onUserPress={this.findPeopleNearByMe}></ButtonWithImage>
-        <CircularLoader isLoading={isLoading} />
+       
 
         <FlatList
           data={usersListNearByMe}

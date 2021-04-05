@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 imageStyle:{
     position:'absolute',
     left:10,
-    height:moderateScaleVertical(20),
-    width:moderateScale(20)
+    height:moderateScaleVertical(25),
+    width:moderateScale(25)
 }
 })

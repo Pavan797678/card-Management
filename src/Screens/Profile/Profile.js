@@ -4,11 +4,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
-  Alert,
+
   Image,
-  StatusBar,
-  FlatList,
+
   TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -46,7 +44,7 @@ class Profile extends Component {
               />
               <View>
                 <Text style={styles.priceDetails}>Pavan Sharma</Text>
-                {/* {userData===''?<></>: <Text>{userData.contactDetails.phoneNo}</Text>} */}
+                {userData===''?<></>: <Text>{userData.contactDetails.phoneNo}</Text>}
                
               </View>
               <View style={{width: '38%', justifyContent: 'center'}}>

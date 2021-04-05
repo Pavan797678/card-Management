@@ -20,5 +20,7 @@ export default {
   CONSULT:"CONSULT",
   WORKOUT:"WORKOUT",
   VISIT:"VISIT",
-  PROFILE:"PROFILE"
+  PROFILE:"PROFILE",
+  DRAWER_ROUTES:'drawerRoutes',
+  CHART:"Chart"
 };

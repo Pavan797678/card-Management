@@ -9,4 +9,5 @@ export {default as Consult} from './Consult/Consult';
 export {default as Workout} from './Workout/Workout';
 export {default as Visit} from './Visit/Visit';
 export {default as Profile} from './Profile/Profile';
+export {default as Chart} from './Chart/Chart'
 
