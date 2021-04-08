@@ -89,6 +89,7 @@ export default class Consult extends Component {
       })
       .then(res => {
         this.setState({isFetching: false, data: res.data});
+        console.log(res.data)
       })
       .catch(err => {
         this.setState({isFetching: false});

@@ -289,6 +289,8 @@ console.log(this.props.array);
                   renderItem={({item}) => <TopCategory data={item} />}
                 />
               </View>
+
+              
             </View>
           </View>
         </ScrollView>

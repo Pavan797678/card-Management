@@ -47,7 +47,15 @@ function Header(props) {
               style={styles.amazonIcon}
               resizeMode="contain"
             />
+
             <View style={styles.miceCartIconView}>
+              <TouchableOpacity
+                style={styles.qrcodeView}
+                onPress={() =>navigation.navigate(navigationStrings.QR_CODESCREEN)}>
+                <Image
+                  source={imagePath.qrcode}
+                  style={styles.qrcodeImage}></Image>
+              </TouchableOpacity>
               <Image
                 source={imagePath.notification}
                 style={styles.notificationIcon}
@@ -112,6 +120,13 @@ function Header(props) {
               resizeMode="contain"
             />
             <View style={styles.miceCartIconView}>
+            <TouchableOpacity
+                style={styles.qrcodeView}
+                onPress={() =>navigation.navigate(navigationStrings.QR_CODESCREEN)}>
+                <Image
+                  source={imagePath.qrcode}
+                  style={styles.qrcodeImage}></Image>
+              </TouchableOpacity>
               <Image
                 source={imagePath.notification}
                 style={styles.notificationIcon}
@@ -215,6 +230,14 @@ const styles = StyleSheet.create({
     right: '15%',
     position: 'relative',
     tintColor: colors.themeColor,
+  },
+  qrcodeImage: {
+    height: 20,
+    width: 20,
+  },
+  qrcodeView: {
+    right: '50%',
+    position: 'relative',
   },
 
   cartCount: {

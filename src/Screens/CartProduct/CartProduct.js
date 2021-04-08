@@ -22,6 +22,7 @@ import {
 } from '../../redux/actions/actions';
 import DetailHeader from '../../Components/CustomHeader';
 import {connect} from 'react-redux';
+import RazorpayCheckout from 'react-native-razorpay';
 
 class CartProduct extends Component {
   state = {
@@ -73,6 +74,35 @@ class CartProduct extends Component {
       {cancelable: false},
     );
   };
+
+clearPayment =()=>{
+
+    var options = {
+     
+      currency: 'INR',
+      key: 'rzp_test_IWGqYVgvkKh3go', // Your api key
+      amount:this.props.price*100 ,
+      name:"HealthKartClone", 
+      description: 'Credits towards consultation',
+      prefill: {
+        email: 'void@HealthKartClone.com',
+        contact: '7976785714',
+        name: 'HealthKart'
+      },
+    };
+    
+    RazorpayCheckout.open(options)
+      .then(data => {
+        // handle success
+        alert(`Success: ${data.razorpay_payment_id}`);
+      })
+      .catch(error => {
+        // handle failure
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
+  
+}
+
   render() {
     const {newQuantity} = this.state;
 
@@ -94,7 +124,7 @@ class CartProduct extends Component {
             />
           )}
         />
-        <TouchableOpacity onPress={this.checkOutScreen}>
+        <TouchableOpacity  onPress={this.clearPayment}>
           {this.state.isVisible ? (
             <View style={styles.buyNowButtonView}>
               <Text style={{color: 'white'}}>
@@ -103,6 +133,7 @@ class CartProduct extends Component {
             </View>
           ) : null}
         </TouchableOpacity>
+      
       </View>
     );
   }
@@ -133,15 +164,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-const mapStateToProps =state=> {
- 
-  return{
-    data:state.carts.todo,
+const mapStateToProps = state => {
+  return {
+    data: state.carts.todo,
     price: state.carts.total,
- 
-  }
-   
-   
+  };
 };
 
 export default connect(mapStateToProps)(CartProduct);

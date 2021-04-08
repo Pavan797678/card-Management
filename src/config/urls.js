@@ -5,4 +5,6 @@ export const SIGNUP = getApiUrl('/user/registerUser');
 export const UPLOAD_IMAGE = getApiUrl('/common/uploadFile');
 export const VERIFYOTP = getApiUrl('/user/v1/verifyOtp');
 export const LOADUSERDATA = getApiUrl('/user/v1/getUserSearch');
-export const SEARCHUSER = getApiUrl('/user/v1/getUserNearMe')
+export const SEARCHUSER = getApiUrl('/user/v1/getUserNearMe');
+export const CHATUSERSLIST = getApiUrl('/user/v1/getAllConversations');
+export const GETMESSAGESONETOONE = getApiUrl('/user/v1/getConversationMessages');

@@ -31,7 +31,7 @@ class Profile extends Component {
 
   render() {
     const {userData={}} = this.props;
-    console.log(userData);
+    console.log(userData,"==========> user data");
     return (
       <View style={{flex: 1}}>
         <Header />

@@ -22,5 +22,8 @@ export default {
   VISIT:"VISIT",
   PROFILE:"PROFILE",
   DRAWER_ROUTES:'drawerRoutes',
-  CHART:"Chart"
+  CHART:"Chart",
+  CHAT_SCREEN:"ChatScreen",
+  QR_CODESCREEN:"QrCodeScreen",
+  CONVERSECTION_USERS_LIST:"ConversectionUsersList",
 };

@@ -23,5 +23,6 @@ export default {
   search_icon:require('../assets/images/search.png'),
   notification:require('../assets/images/notification.png'),
   profile:require('../assets/images/profile.png'),
+  qrcode:require('../assets/images/qrcode.png'),
 
 };

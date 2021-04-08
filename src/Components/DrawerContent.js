@@ -82,6 +82,14 @@ export default function DrawerContent(props) {
                 
               }}
             />
+             <DrawerItem
+               icon={({color, size}) => <Image source={imagePath.HOME} />}
+              label="Chat"
+              onPress={() => {
+                navigation.navigate(navigationStrings.CONVERSECTION_USERS_LIST);
+                
+              }}
+            />
           
           </Drawer.Section>
         </View>

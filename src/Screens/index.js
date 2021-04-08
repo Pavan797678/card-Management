@@ -10,4 +10,7 @@ export {default as Workout} from './Workout/Workout';
 export {default as Visit} from './Visit/Visit';
 export {default as Profile} from './Profile/Profile';
 export {default as Chart} from './Chart/Chart'
+export {default as ChatScreen} from './ChatScreen/ChatScreen'
+export {default as QrCodeScreen } from './QrCodeScreen/QrCodeScreen'
+export {default as ConversectionUsersList} from './ConversectionUsersList/ConversectionUsersList'
 
