@@ -20,28 +20,32 @@ class WSService {
           accessToken: userToken,
         },
       });
-
       this.socket.on('connect', data => {
+        
         console.log('===== socket connected =====');
         console.log(data);
       });
 
-      this.socket.on('disconnect', () => {
-        console.log('socket disconnected',userToken);
+      this.socket.on('disconnect', (error) => {
+        
+        console.log('socket disconnected',error);
       });
 
       this.socket.on('socketError', err => {
+       
         console.log('socket connection error: ', err);
         // logger.data('socket connection error: ', err);
       });
       this.socket.on('parameterError', () => {
+        
         console.log('socket connection error: ', err);
       });
 
       this.socket.on('error', error => {
         // console.log('socket error: ', err);
         // logger.data('socket error: ', err);
-        console.log(error, 'thea data');
+        alert(error)
+        console.log(error, 'the data');
       });
 
       // this.socket.on('reconnect_attempt', () => {

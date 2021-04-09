@@ -13,9 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-
 import {add} from '../../redux/actions/actions';
-
 
 import Header from '../../Components/Header';
 import store from '../../redux/store';
@@ -24,6 +22,7 @@ import Carousel from '../../Components/Carousel';
 import BrandedItems from '../../Components/BrandedItems';
 import colors from '../../styles/colors';
 import TopCategory from '../../Components/TopCategory';
+import socketServices from '../../utils/socketServices';
 
 class Home extends Component {
   constructor(props) {
@@ -33,9 +32,8 @@ class Home extends Component {
       data: '',
       page: 1,
       item_id: null,
-      searchVisible:true,
-     
-      
+      searchVisible: true,
+
       isModalVisibal: false,
       titleplaceholder: 'Title',
       descriptionPlaceholder: 'Description',
@@ -163,6 +161,10 @@ class Home extends Component {
     console.disableYellowBox = true;
   }
 
+  componentDidMount() {
+    socketServices.initializeSocket(this?.props?.userData?.accessToken);
+    
+  }
   _onChangeText = key => {
     return value => {
       this.setState({
@@ -173,23 +175,15 @@ class Home extends Component {
   };
 
   add = itemdata => {
-    
-   
-
     store.dispatch(add(itemdata));
-   
-   
   };
 
-
-
   render() {
-    const {brandedItems, topCategories,searchVisible} = this.state;
-     console.log(this.props, 'reducer data');
-console.log(this.props.array);
+    const {brandedItems, topCategories, searchVisible} = this.state;
+
     return (
       <View style={{flex: 1}}>
-        <Header searchVisible={searchVisible}/>
+        <Header searchVisible={searchVisible} />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -223,7 +217,7 @@ console.log(this.props.array);
                 ItemSeparatorComponent={() => (
                   <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
                 )}
-                renderItem={({item,index}) => (
+                renderItem={({item, index}) => (
                   <BrandedItems data={item} index={index} onadd={this.add} />
                 )}
               />
@@ -289,8 +283,6 @@ console.log(this.props.array);
                   renderItem={({item}) => <TopCategory data={item} />}
                 />
               </View>
-
-              
             </View>
           </View>
         </ScrollView>
@@ -310,7 +302,7 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = function (state) {
   return {
-    array: state
+    userData: state?.authreducer?.userData,
   };
 };
 

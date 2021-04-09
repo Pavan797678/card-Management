@@ -9,10 +9,10 @@ import {showError} from './helperFunctions';
 
 export async function getHeaders() {
   let userData = await AsyncStorage.getItem('userData');
-  console.log(userData, 'the user data value ');
+  // console.log(userData, 'the user data value ');
   if (userData) {
     userData = JSON.parse(userData);
-    console.log(userData.token, 'header');
+    // console.log(userData.token, 'header');
     return {
       authorization: `Bearer ${userData.accessToken}`,
     };
@@ -65,7 +65,7 @@ export async function apiReq(
   headers,
   requestOptions = {},
 ) {
-  console.log(endPoint + 'lsoj');
+  // console.log(endPoint + 'lsoj');
   return new Promise(async (res, rej) => {
     const getTokenHeader = await getHeaders();
     headers = {
@@ -80,7 +80,7 @@ export async function apiReq(
         headers,
       };
     }
-    console.log(headers);
+    // console.log(headers);
     axios[method](endPoint, data, {headers})
       .then((result) => {
         const {data} = result;
@@ -92,8 +92,8 @@ export async function apiReq(
         return res(data);
       })
       .catch((error) => {
-        console.log(error);
-        console.log(error && error.response, 'the error respne');
+        // console.log(error);
+        // console.log(error && error.response, 'the error respne');
         if (error && error.response && error.response.status === 401) {
           const {dispatch} = store;
           dispatch({

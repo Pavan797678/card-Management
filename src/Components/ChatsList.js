@@ -15,7 +15,7 @@ const {height, width} = Dimensions.get('window');
 function ChatsList({data,goToChatScreen}) {
   return (
     <View>
-      <TouchableOpacity onPress={()=>goToChatScreen(data._id,data.commonConversationId)}>
+      <TouchableOpacity onPress={()=>goToChatScreen(data)}>
         <View style={styles.postContainer}>
           <View style={styles.imageParentView}>
             <Image
@@ -29,12 +29,7 @@ function ChatsList({data,goToChatScreen}) {
               <Text style={styles.usernameText}>{data.userInfo.fullName}</Text>
               <Text style={styles.messageText}>{data.userInfo.bio}</Text>
             </View>
-            <View style={styles.outgoingCallView}>
-              <Image
-                style={styles.outgoingCallImage}
-                source={imagePath.outgoingcall}
-              />
-            </View>
+           
           </View>
         </View>
       </TouchableOpacity>

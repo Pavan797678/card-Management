@@ -6,8 +6,6 @@ import navigationStrings from '../../constants/navigationStrings';
 import actions from '../../redux/actions/index';
 import colors from '../../styles/colors';
 
-
-
 export default class ConversectionUsersList extends Component {
   constructor(props) {
     super(props);
@@ -31,10 +29,10 @@ export default class ConversectionUsersList extends Component {
       .chatUsersList(10, 0)
       .then(res => {
         this.setState({
-           chatUsersList:res.data,
+          chatUsersList: res.data,
           isLoading: false,
         });
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch(error => {
         this.setState({
@@ -43,13 +41,18 @@ export default class ConversectionUsersList extends Component {
       });
   };
 
-  goToChatScreen=(_id,commonConversationId)=>{
-    const {navigation}=this.props
-    const {chatUsersList} = this.state
+  goToChatScreen = data => {
+    const {navigation} = this.props;
 
-     navigation.navigate(navigationStrings.CHAT_SCREEN,{id:_id,commonConversationId:commonConversationId})
-    
-  }
+
+    navigation.navigate(navigationStrings.CHAT_SCREEN, {
+      id: data._id,
+      commonConversationId: data.commonConversationId,
+      profileImg: data.userInfo.profileImg[0].original,
+      userName:data.userInfo.fullName,
+      isOnline:data.userInfo.isOnline
+    });
+  };
 
   render() {
     const {searchVisible, chatUsersList, isLoading} = this.state;
@@ -61,9 +64,18 @@ export default class ConversectionUsersList extends Component {
           data={chatUsersList}
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id}
-          ItemSeparatorComponent={()=><View style={{ marginLeft:95, height: .5, backgroundColor:colors.textGreyB }}></View>}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                marginLeft: 95,
+                height: 0.5,
+                backgroundColor: colors.textGreyB,
+              }}></View>
+          )}
           renderItem={({item, index}) => {
-            return <ChatsList data={item} goToChatScreen={this.goToChatScreen} />;
+            return (
+              <ChatsList data={item} goToChatScreen={this.goToChatScreen} />
+            );
           }}
         />
       </View>
