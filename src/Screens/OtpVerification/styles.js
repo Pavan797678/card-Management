@@ -3,14 +3,14 @@ import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
 import fontFamily from '../../styles/fontFamily';
 import {
-  moderateScaleVertical,
+  moderateVerticalScale,
   moderateScale,
   textScale,
 } from '../../styles/responsiveSize';
 
 export default StyleSheet.create({
   backContainer:{
-    height: moderateScaleVertical(80),
+    height: moderateVerticalScale(80),
     borderBottomColor: colors.borderLight,
     borderBottomWidth: 2,
     paddingHorizontal: moderateScale(24),
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
     fontFamily: fontFamily.medium,
-    marginTop: moderateScaleVertical(15),
+    marginTop: moderateVerticalScale(15),
   },
 
   root: {

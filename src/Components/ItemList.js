@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Dimensions, Button} from 'react-native';
+import strings from '../constants/lang';
 import colors from '../styles/colors';
 import commonStyles from '../styles/commonStyles';
+import fontFamily from '../styles/fontFamily';
 
 const {height, width} = Dimensions.get('screen');
 
@@ -45,7 +47,7 @@ export default function ItemList({data}) {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{color: colors.white}}>Follow</Text>
+            <Text style={{color: colors.white}}>{strings.FOLLOW}</Text>
           </View>
         </View>
       </View>
@@ -61,8 +63,8 @@ const styles = StyleSheet.create({
   cartItemView: {
     height: height / 3.5,
     width: width / 2.2,
-    backgroundColor: 'white',
-    shadowColor: '#000',
+    backgroundColor:colors.white,
+    shadowColor:colors.black,
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -78,7 +80,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   heading: {
-    fontStyle: 'italic',
     fontWeight: 'bold',
   },
   userName: {
@@ -98,6 +99,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   buttonContentText: {
-    color: 'white',
+    color:colors.white,
   },
 });

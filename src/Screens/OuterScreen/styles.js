@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
 import fontFamily from '../../styles/fontFamily';
 import {
-  moderateScaleVertical,
+  moderateVerticalScale,
   moderateScale,
 } from '../../styles/responsiveSize';
 
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
     fontFamily: fontFamily.medium,
-    marginTop: moderateScaleVertical(15),
+    marginTop: moderateVerticalScale(15),
   },
   socialRow:{
     flexDirection: 'row',
@@ -29,7 +29,7 @@ export default StyleSheet.create({
   socialRowBtn:{
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: moderateScaleVertical(40),
+    marginTop: moderateVerticalScale(40),
   },
   hyphen:{
     width: 20,
@@ -40,10 +40,10 @@ export default StyleSheet.create({
   bottomContainer:{
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: moderateScaleVertical(30),
+    marginBottom: moderateVerticalScale(30),
   },
   guestBtn:{
-    marginTop: moderateScaleVertical(20),
+    marginTop: moderateVerticalScale(20),
     backgroundColor: colors.lightSky,
     borderWidth: 0,
   },
@@ -63,5 +63,11 @@ export default StyleSheet.create({
   login:{
     color: colors.themeColor,
     fontFamily: fontFamily.futuraBtHeavy,
+  },bottomContainerView:{
+    
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    
   }
 });

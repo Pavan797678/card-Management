@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import commonStyles from '../styles/commonStyles';
-import {moderateScaleVertical} from '../styles/responsiveSize';
+import {moderateVerticalScale} from '../styles/responsiveSize';
 import colors from '../styles/colors';
 const ButtonWithLoader = ({
   onPress = () => {},
@@ -15,7 +15,7 @@ const ButtonWithLoader = ({
     <TouchableOpacity
       style={{
         ...commonStyles.buttonRect,
-        marginTop: moderateScaleVertical(20),
+        marginTop: moderateVerticalScale(20),
         ...btnStyle,
       }}
       onPress={onPress}>

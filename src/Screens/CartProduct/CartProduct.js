@@ -13,16 +13,12 @@ import {
 
 import CartItem from '../../Components/CartItem';
 
-import store from '../../redux/store';
-import {
-  ondelete,
-  onItemAdd,
-  onInitialPrice,
-  onItemDelete,
-} from '../../redux/actions/actions';
+
 import DetailHeader from '../../Components/CustomHeader';
 import {connect} from 'react-redux';
 import RazorpayCheckout from 'react-native-razorpay';
+import colors from '../../styles/colors';
+import actions from '../../redux/actions';
 
 class CartProduct extends Component {
   state = {
@@ -43,15 +39,15 @@ class CartProduct extends Component {
   };
 
   componentDidMount() {
-    store.dispatch(onInitialPrice(this.props.data));
+    actions.onInitialPrice(this.props.data);
   }
 
   productQuantityIncreament = id => {
-    store.dispatch(onItemAdd(id));
+    actions.onItemAdd(id);
   };
 
   productQuantityDecreament = id => {
-    store.dispatch(onItemDelete(id));
+    actions.onItemDecrement(id);
   };
 
   onDelete = id => {
@@ -67,7 +63,7 @@ class CartProduct extends Component {
         {
           text: 'OK',
           onPress: () => {
-            store.dispatch(ondelete(id));
+            actions.ondelete(id);
           },
         },
       ],
@@ -75,22 +71,20 @@ class CartProduct extends Component {
     );
   };
 
-clearPayment =()=>{
-
+  clearPayment = () => {
     var options = {
-     
       currency: 'INR',
       key: 'rzp_test_IWGqYVgvkKh3go', // Your api key
-      amount:this.props.price*100 ,
-      name:"HealthKartClone", 
+      amount: this.props.price * 100,
+      name: 'HealthKartClone',
       description: 'Credits towards consultation',
       prefill: {
         email: 'void@HealthKartClone.com',
         contact: '7976785714',
-        name: 'HealthKart'
+        name: 'HealthKart',
       },
     };
-    
+
     RazorpayCheckout.open(options)
       .then(data => {
         // handle success
@@ -100,14 +94,13 @@ clearPayment =()=>{
         // handle failure
         alert(`Error: ${error.code} | ${error.description}`);
       });
-  
-}
+  };
 
   render() {
     const {newQuantity} = this.state;
 
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={styles.container}>
         <DetailHeader />
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -124,22 +117,22 @@ clearPayment =()=>{
             />
           )}
         />
-        <TouchableOpacity  onPress={this.clearPayment}>
+        <TouchableOpacity onPress={this.clearPayment}>
           {this.state.isVisible ? (
             <View style={styles.buyNowButtonView}>
-              <Text style={{color: 'white'}}>
+              <Text style={styles.textStyle}>
                 Place Order:{this.props.price}
               </Text>
             </View>
           ) : null}
         </TouchableOpacity>
-      
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: colors.white},
   MainContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -153,7 +146,7 @@ const styles = StyleSheet.create({
     height: 44,
   },
   buyNowButtonView: {
-    backgroundColor: '#f74300',
+    backgroundColor: colors.themeColor,
     height: 45,
     alignItems: 'center',
     justifyContent: 'center',
@@ -163,6 +156,7 @@ const styles = StyleSheet.create({
     width: 200,
     resizeMode: 'contain',
   },
+  textStyle: {color: colors.white},
 });
 const mapStateToProps = state => {
   return {

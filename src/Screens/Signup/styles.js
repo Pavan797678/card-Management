@@ -3,7 +3,7 @@ import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
 import fontFamily from '../../styles/fontFamily';
 import {
-  moderateScaleVertical,
+  moderateVerticalScale,
   moderateScale,
 } from '../../styles/responsiveSize';
 
@@ -19,16 +19,16 @@ export default StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
     fontFamily: fontFamily.medium,
-    marginTop: moderateScaleVertical(15),
+    marginTop: moderateVerticalScale(15),
   },
 
   bottomContainer:{
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: moderateScaleVertical(30),
+    marginBottom: moderateVerticalScale(30),
   },
   guestBtn:{
-    marginTop: moderateScaleVertical(20),
+    marginTop: moderateVerticalScale(20),
     backgroundColor: colors.lightSky,
     borderWidth: 0,
   },
@@ -40,5 +40,52 @@ export default StyleSheet.create({
     opacity: 0.6,
     marginTop: 0,
     marginHorizontal: moderateScale(16),
+  },hyphen: {
+    width: 100,
+    height: 1,
+    backgroundColor: colors.textGrey,
+    opacity: 0.6,
+  },
+  socialRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: moderateVerticalScale(20),
+  },
+  orText: {
+    ...commonStyles.mediumFont14,
+    lineHeight: 24,
+    textAlign: 'center',
+
+    opacity: 0.6,
+    marginTop: 0,
+    marginHorizontal: moderateScale(16),
+  },
+  socialRowBtn: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: moderateScale(40),
+    marginTop: moderateVerticalScale(20),
+  },
+  bottomContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: moderateVerticalScale(20),
+  },
+  socialButton:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginHorizontal: 20,
+    marginVertical: 20,
+  }, termsConditionContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:10
+   
+  },googleImageView:{
+    width: '46%', borderWidth: 1, borderColor: colors.red
+  },facebookImageView:{
+    width: '46%', borderWidth: 1, borderColor: colors.blue
   }
 });

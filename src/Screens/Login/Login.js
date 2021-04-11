@@ -16,7 +16,8 @@ import imagePath from '../../constants/imagePath';
 import navigationStrings from '../../constants/navigationStrings';
 import colors from '../../styles/colors';
 import commonStyles from '../../styles/commonStyles';
-import api from '../../redux/actions/index';
+
+import actions from '../../redux/actions/index';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {
   LoginManager,
@@ -24,15 +25,21 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-import { GoogleSignin, statusCodes ,GoogleSigninButton} from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
 GoogleSignin.configure();
 
 import {
-  moderateScaleVertical,
+  moderateVerticalScale,
   moderateScale,
 } from '../../styles/responsiveSize';
 import Loader from '../../Components/Loader';
 import {setUserData} from '../../utils/utils';
+import styles from './styles';
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -77,7 +84,7 @@ export default class Login extends Component {
       this.setState({
         isLoading: true,
       });
-      api
+      actions
         .login({
           contactDetails: {
             phoneNo: userMobile,
@@ -111,7 +118,7 @@ export default class Login extends Component {
             icon: 'danger',
           });
 
-          console.log(JSON.stringify(error));
+          console.log(error);
         });
     }
   };
@@ -162,31 +169,24 @@ export default class Login extends Component {
     new GraphRequestManager().addRequest(profileRequest).start();
   };
 
-
   _signIn = async () => {
-    
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      this.setState({ userInfo });
-      alert(JSON.stringify(userInfo))
-      
+      this.setState({userInfo});
+      alert(JSON.stringify(userInfo));
     } catch (error) {
-     
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        console.log('in cancle method')
-       
+        console.log('in cancle method');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
-        
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        
       } else {
         // some other error happened
-       
-        alert(error)
+
+        alert(error);
       }
     }
   };
@@ -201,7 +201,7 @@ export default class Login extends Component {
           <View
             style={{
               marginHorizontal: 15,
-              marginTop: moderateScaleVertical(15),
+              marginTop: moderateVerticalScale(15),
             }}>
             <TextInputWithLabel
               label={'Mobile No'}
@@ -269,44 +269,3 @@ export default class Login extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  hyphen: {
-    width: 100,
-    height: 1,
-    backgroundColor: colors.textGrey,
-    opacity: 0.6,
-  },
-  socialRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: moderateScaleVertical(20),
-  },
-  orText: {
-    ...commonStyles.mediumFont14,
-    lineHeight: 24,
-    textAlign: 'center',
-
-    opacity: 0.6,
-    marginTop: 0,
-    marginHorizontal: moderateScale(16),
-  },
-  socialRowBtn: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: moderateScale(40),
-    marginTop: moderateScaleVertical(20),
-  },
-  bottomContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: moderateScaleVertical(20),
-  },
-  socialButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
-    marginHorizontal: 20,
-    marginVertical: 20,
-  },
-});

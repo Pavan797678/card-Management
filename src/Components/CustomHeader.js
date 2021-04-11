@@ -20,19 +20,16 @@ function DetailHeader(props) {
   return (
     <View style={styles.DetailHeader}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.themeColor} />
-      <View style={{marginVertical: 10, flexDirection: 'row'}}>
+      <View style={styles.drawerMainView}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image style={styles.logo1} source={imagePath.backWithSquare} />
         </TouchableOpacity>
         <Text style={styles.titleText}>Cart</Text>
       </View>
-      <View style={{flexDirection: 'row', marginEnd: 7}}>
+      <View style={styles.counterTextMainView}>
         {/* <Image style={styles.search} source={imagePath.heart} /> */}
         <View>
-          <Text
-            style={{position: 'absolute', top: 5, left: 30, color: '#FF527B'}}>
-            {count}
-          </Text>
+          <Text style={styles.counterText}>{count}</Text>
           {/* <Image style={styles.search} source={imagePath.beg} /> */}
         </View>
       </View>
@@ -47,7 +44,7 @@ const styles = StyleSheet.create({
   },
   DetailHeader_text: {
     fontSize: 20,
-    color: 'white',
+    color: colors.white,
 
     marginHorizontal: 18,
   },
@@ -66,10 +63,10 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     resizeMode: 'contain',
     marginStart: 15,
-    tintColor:colors.white
+    tintColor: colors.white,
   },
   titleText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 25,
     marginHorizontal: 20,
   },
@@ -79,5 +76,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     marginVertical: 12,
   },
+  counterText: {position: 'absolute', top: 5, left: 30, color: colors.green},
+  counterTextMainView: {flexDirection: 'row', marginEnd: 7},
+  drawerMainView:{marginVertical: 10, flexDirection: 'row'}
 });
 export default DetailHeader;

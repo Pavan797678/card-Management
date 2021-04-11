@@ -30,7 +30,7 @@ export function login(data = {}) {
 }
 
 export function verifyOtp(data = {}) {
-  console.log(data);
+ 
   return new Promise((resolve, reject) => {
     apiPost(VERIFYOTP, data)
       .then(res => {

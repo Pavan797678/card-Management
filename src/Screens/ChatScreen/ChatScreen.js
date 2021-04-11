@@ -55,6 +55,7 @@ class ChatScreen extends Component {
       )
       .then(res => {
         const {profileImg} = this.props.route.params;
+        console.log(profileImg, "THIS IS PROFILE") ;
 
         //To send back response that all the messages have been seen;
         // socketServices.emit(SOCKET_STRINGS.SEEN_ALL_MESSAGES, {
@@ -88,7 +89,6 @@ class ChatScreen extends Component {
   };
 
   onReceiveMessage = data => {
-    console.log(data,"=============data=============");
     const {
       commonConversationId,
       firstName,
@@ -121,16 +121,17 @@ class ChatScreen extends Component {
     }
   };
 
+
   render() {
     const {messages} = this.state;
     const {userData} = this.props;
     const {profileImg, userName, isOnline} = this.props.route.params;
 
-    console.log(messages);
+    console.log(messages, "THIS IS MESSAGES");
     return (
       <>
         <ChatHeader
-          userImage={profileImg}
+          // userImage={profileImg}
           headingText={userName}
           onlineStatus={isOnline}
         />

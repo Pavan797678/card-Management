@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, Button} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import strings from '../constants/lang';
+import colors from '../styles/colors';
 
 
 export default function CartItem({
@@ -53,10 +55,10 @@ export default function CartItem({
         </View>
       </View>
       <View style={styles.cartproductOperation}>
-        <Text style={{marginHorizontal: 10}}>Save for later</Text>
+        <Text style={styles.saveForLateText}>{strings.SAVE_FOR_LATER}</Text>
         <View style={{borderRightWidth: 0.3}}></View>
         <TouchableOpacity onPress={()=>onDelete(data.id)}>
-        <Text style={{marginHorizontal: 10}}>Remove</Text>
+        <Text style={{marginHorizontal: 10}}>{strings.REMOVE}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -84,10 +86,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   remaningProduct: {
-    color: 'red',
+    color:colors.green,
   },
   offerText: {
-    color: 'green',
+    color:colors.green,
     marginVertical: 35,
     marginHorizontal: 2,
   },
@@ -95,10 +97,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   sizeText: {
-    color: 'grey',
+    color:colors.textGrey,
   },
   sellerText: {
-    color: 'grey',
+    color:colors.textGrey,
   },
   priceText: {
     fontSize: 20,
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   offpriceText: {
-    color: 'grey',
+    color:colors.textGrey,
     textDecorationLine: 'line-through',
     marginVertical: 35,
     marginHorizontal: 10,
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
 
     padding: 10,
     borderBottomWidth: 7,
-    borderColor: 'lightgrey',
+    borderColor:colors.lightGreyBg,
   },
   productQuantity: {
     flexDirection: 'row',
@@ -129,6 +131,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 2,
     borderWidth: 1,
-    borderColor: 'lightgrey',
-  },
+    borderColor:colors.lightGreyBg,
+  },saveForLateText:{marginHorizontal: 10}
 });

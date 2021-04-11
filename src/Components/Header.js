@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   searchBarView: {
     width: '95%',
     height: '40%',
-    backgroundColor: 'white',
+    backgroundColor:colors.white,
     borderRadius: 5,
     elevation: 10,
     marginBottom: 10,
@@ -194,7 +194,6 @@ const styles = StyleSheet.create({
     width: '86%',
     height: 40,
     fontSize: 18,
-    fontWeight: 'bold',
     paddingVertical: 5,
   },
   drawerIcon: {
@@ -245,7 +244,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: '45%',
     top: '15%',
-    color: 'red',
+    color:colors.red,
   },
 });
 

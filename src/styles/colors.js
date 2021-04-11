@@ -27,7 +27,8 @@ export default {
   buyBgDark:"#282828",
   whiteOpacity77:"rgba(255,255,255,0.77)",
   lightGreyBg:"#e8e8e8",
-  buttonTextColor:"#36b6b0"
+  buttonTextColor:"#36b6b0",
+  red:"red"
 
 
 };

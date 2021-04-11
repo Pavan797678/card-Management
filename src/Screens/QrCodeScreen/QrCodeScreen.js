@@ -33,7 +33,7 @@ openModal=()=>{
         <QRCodeScanner
         reactivate={true}
         showMarker={true}
-        markerStyle={{ borderColor:colors.themeColor, borderRadius: 20 }}
+        markerStyle={styles.markerStyles}
         ref={(node) => { this.scanner = node }}
         onRead={this.onSuccess}
         flashMode={RNCamera.Constants.FlashMode.auto}
@@ -55,7 +55,7 @@ openModal=()=>{
       visible={this.state.isModalVisiable}
       onRequestClose={this.closeModal}
       >
-      <View style={{flex:1, alignItems:'center',justifyContent:'center'}}>
+      <View style={styles.qrcodeLinkView}>
       <QRCode
       value="http://awesome.link.qr"
     />
@@ -71,17 +71,21 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     padding: 32,
-    color: '#777',
+    color: colors.blackOpacity10,
   },
   textBold: {
-    fontWeight: '500',
-    color: '#000',
+    
+    color:colors.black ,
   },
   buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
+    fontSize:21,
+    color:colors.black,
   },
   buttonTouchable: {
     padding: 16,
-  },
+  },markerStyle:{
+     borderColor:colors.themeColor, borderRadius: 20 
+  },qrcodeLinkView:{
+    flex:1, alignItems:'center',justifyContent:'center'
+  }
 });

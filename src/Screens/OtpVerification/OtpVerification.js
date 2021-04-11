@@ -23,18 +23,12 @@ import {
 } from 'react-native-confirmation-code-field';
 
 import styles from './styles';
-import {
-  moderateScaleVertical,
- 
-} from '../../styles/responsiveSize';
+import {moderateVerticalScale} from '../../styles/responsiveSize';
 import strings from '../../constants/lang';
 import imagePath from '../../constants/imagePath';
 import GradientButton from '../../Components/GradientButton';
 import WrapperContainer from '../../Components/WrapperContainer';
 import colors from '../../styles/colors';
-import store from '../../redux/store';
-import { getUserData,setUserData } from '../../utils/utils';
-
 
 const CELL_COUNT = 5;
 export default class OtpVerification extends Component {
@@ -68,12 +62,11 @@ export default class OtpVerification extends Component {
     api
       .verifyOtp({
         userId,
-        otp:userOtp,
-        deviceToken:"123",
-        registerFrom:Platform.OS.toUpperCase(),
+        otp: userOtp,
+        deviceToken: '123',
+        registerFrom: Platform.OS.toUpperCase(),
       })
       .then(res => {
-
         this.setState({
           isLoading: false,
         });
@@ -83,11 +76,6 @@ export default class OtpVerification extends Component {
           message: 'Otp Verification Successful',
           icon: 'success',
         });
-
-    
-
-      
-      
       })
       .catch(error => {
         this.setState({
@@ -103,12 +91,10 @@ export default class OtpVerification extends Component {
       });
   };
 
-  
-
   render() {
     const {userOtp, isLoading} = this.state;
-    const{navigation}=this.props
-     
+    const {navigation} = this.props;
+
     return (
       <WrapperContainer statusBarColor={colors.themeColor}>
         <View style={styles.backContainer}>
@@ -121,12 +107,11 @@ export default class OtpVerification extends Component {
         <View
           style={{
             flex: 1,
-            marginTop: moderateScaleVertical(88),
-            
+            marginTop: moderateVerticalScale(88),
           }}>
           <Text style={styles.header}>{strings.OTP_VERIFICATION}</Text>
           <Text style={styles.txtSmall}>{strings.ENTER_OTP_SENT}</Text>
-          <View style={{height: moderateScaleVertical(50)}} />
+          <View style={{height: moderateVerticalScale(50)}} />
           <CodeField
             value={userOtp}
             onChangeText={this._onChangeText('userOtp')}
@@ -144,15 +129,15 @@ export default class OtpVerification extends Component {
               </Text>
             )}
           />
-          <View style={{alignItems:'center'}}>
-          <GradientButton
-            onPress={this.verifyOtp}
-            containerStyle={{marginTop: moderateScaleVertical(10)}}
-            btnText={strings.VERIFY_ACCOUNT}
-          />
+          <View style={{alignItems: 'center'}}>
+            <GradientButton
+              onPress={this.verifyOtp}
+              containerStyle={{marginTop: moderateVerticalScale(10)}}
+              btnText={strings.VERIFY_ACCOUNT}
+            />
           </View>
         </View>
-        <Loader isLoading={isLoading}/>
+        <Loader isLoading={isLoading} />
       </WrapperContainer>
     );
   }

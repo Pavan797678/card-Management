@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import imagePath from '../constants/imagePath';
+import strings from '../constants/lang';
 import colors from '../styles/colors';
 
 export default function ChatHeader(props) {
@@ -14,7 +15,7 @@ export default function ChatHeader(props) {
       </View>
       <View style={styles.userNameView}>
         <Text style={styles.userNameText}>{headingText}</Text>
-        {onlineStatus ?<Text style={styles.userNameText}>Online</Text>:<Text style={styles.userNameText}>Offline</Text>}
+        {onlineStatus ?<Text style={styles.userNameText}>{strings.ONLINE}</Text>:<Text style={styles.userNameText}>{strings.OFFLINE}</Text>}
         
       </View>
     </View>

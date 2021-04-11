@@ -26,7 +26,7 @@ class Carousel extends Component {
 
   change(nativeEvent) {
     if (nativeEvent) {
-      const slide = Math.ceil(                      
+      const slide = Math.ceil(
         nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
       );
       if (slide !== this.state.active) {

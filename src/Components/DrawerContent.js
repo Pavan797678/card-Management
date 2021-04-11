@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet,Image, Button} from 'react-native';
+import {View, StyleSheet, Image, Button} from 'react-native';
 import {
   Avatar,
   Title,
@@ -15,7 +15,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import navigationStrings from '../constants/navigationStrings';
 import imagePath from '../constants/imagePath';
 
-
 export default function DrawerContent(props) {
   const {navigation} = props;
   return (
@@ -24,10 +23,7 @@ export default function DrawerContent(props) {
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
             <View style={{flexDirection: 'row', marginTop: 15}}>
-              <Avatar.Image
-                source={imagePath.profile}
-                size={50}
-              />
+              <Avatar.Image source={imagePath.profile} size={50} />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
                 <Title style={styles.title}>Pavan Sharma</Title>
                 <Caption style={styles.caption}>Pavan@CBL.Com</Caption>
@@ -37,11 +33,10 @@ export default function DrawerContent(props) {
 
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-               icon={({color, size}) => <Image source={imagePath.HOME} />}
+              icon={({color, size}) => <Image source={imagePath.HOME} />}
               label="Home"
               onPress={() => {
                 navigation.navigate(navigationStrings.HOME);
-                
               }}
             />
             <DrawerItem
@@ -59,7 +54,7 @@ export default function DrawerContent(props) {
               }}
             />
             <DrawerItem
-               icon={({color, size}) => <Image source={imagePath.HOME} />}
+              icon={({color, size}) => <Image source={imagePath.HOME} />}
               label="Visit"
               onPress={() => {
                 navigation.navigate(navigationStrings.VISIT);
@@ -75,30 +70,26 @@ export default function DrawerContent(props) {
           </Drawer.Section>
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-               icon={({color, size}) => <Image source={imagePath.HOME} />}
+              icon={({color, size}) => <Image source={imagePath.HOME} />}
               label="Charts"
               onPress={() => {
                 navigation.navigate(navigationStrings.CHART);
-                
               }}
             />
-             <DrawerItem
-               icon={({color, size}) => <Image source={imagePath.HOME} />}
+            <DrawerItem
+              icon={({color, size}) => <Image source={imagePath.HOME} />}
               label="Chat"
               onPress={() => {
                 navigation.navigate(navigationStrings.CONVERSECTION_USERS_LIST);
-                
               }}
             />
-          
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
-     
-     <View style={styles.signOutButtonView}>
-     <Button title={"Sign Out"}></Button>
-     </View>
-     
+
+      <View style={styles.signOutButtonView}>
+        <Button title={'Sign Out'}></Button>
+      </View>
     </View>
   );
 }
@@ -146,9 +137,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 12,
     paddingHorizontal: 16,
-  },signOutButtonView:{
-    bottom:0,
-    marginHorizontal:20,
-    marginBottom:20
-  }
+  },
+  signOutButtonView: {
+    bottom: 0,
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
 });

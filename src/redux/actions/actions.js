@@ -1,29 +1,43 @@
+import store from '../store';
 import ActionTypes from '../types';
 
-export const add = itemdata => ({
-  type: ActionTypes.ADD,
-  payload: {itemdata},
-});
-export const ondelete = id => ({
-  type: ActionTypes.DELETE,
+const {dispatch} = store;
 
-  payload: {id},
-});
+export const add = itemdata => {
+ 
+  dispatch({
+    type: ActionTypes.ADD,
+    payload:itemdata,
+  });
+};
+export const ondelete = id => {
+  dispatch({
+    type: ActionTypes.DELETE,
 
-export const onItemAdd = CARTITEM_ID => ({
-  type: ActionTypes.ITEMINCREMENT,
+    payload:id,
+  });
+};
 
-  payload: {CARTITEM_ID},
-});
+export const onItemAdd = CARTITEM_ID => {
+  dispatch({
+    type: ActionTypes.ITEMINCREMENT,
 
-export const onItemDelete = REMOVEITEM_ID => ({
-  type: ActionTypes.ITEMDECREMENT,
+    payload:CARTITEM_ID,
+  });
+};
 
-  payload: {REMOVEITEM_ID},
-});
+export const onItemDecrement = id => {
+  dispatch({
+    type: ActionTypes.ITEMDECREMENT,
 
-export const onInitialPrice = arrayWithInitialPrice => ({
-  type: ActionTypes.INITIALPRICE,
+    payload:id,
+  });
+};
 
-  payload: {arrayWithInitialPrice},
-});
+export const onInitialPrice = arrayWithInitialPrice => {
+  dispatch({
+    type: ActionTypes.INITIALPRICE,
+
+    payload:arrayWithInitialPrice,
+  });
+};

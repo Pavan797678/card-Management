@@ -8,7 +8,7 @@ const initialState = {
 export default function cart(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.ADD:
-      const {itemdata} = action.payload;
+      const itemdata = action.payload;
 
       if (!state.todo.includes(itemdata)) {
         itemdata.quantity += 1;
@@ -21,7 +21,7 @@ export default function cart(state = initialState, action) {
 
     case ActionTypes.DELETE:
       newArray = state.todo;
-      newArray = newArray.filter(item => action.payload.id !== item.id);
+      newArray = newArray.filter(item => action.payload !== item.id);
 
       let decrementedpriceAfterDeleteProduct = 0;
       for (let i = 0; i < newArray.length; i++) {
@@ -37,13 +37,13 @@ export default function cart(state = initialState, action) {
     case ActionTypes.UPDATE:
       newArray = state.todo;
       let elementsIndex = newArray.findIndex(
-        element => element.id == action.payload.id,
+        element => element.id == action.payload,
       );
 
       newArray[elementsIndex] = {
         ...newArray[elementsIndex],
         content: action.payload.newUpdatedText,
-        contentdescription: action.payload.status,
+        contentdescription: action.payload,
       };
 
       return {
@@ -53,13 +53,13 @@ export default function cart(state = initialState, action) {
       let newQuantityArray = [...state.todo];
 
       const quantityArrayIndex = newQuantityArray.findIndex(
-        item => item.id === action.payload.CARTITEM_ID,
+        item => item.id === action.payload
       );
       let finalQuantityArray = newQuantityArray[quantityArrayIndex];
 
       finalQuantityArray.quantity += 1;
 
-      let array = [...newQuantityArray];
+      let newTodo = [...newQuantityArray];
 
       let price = 0;
       for (let i = 0; i < newQuantityArray.length; i++) {
@@ -68,7 +68,7 @@ export default function cart(state = initialState, action) {
 
       return {
         ...state,
-        todo: array,
+        todo: newTodo,
         total: price,
       };
 
@@ -76,7 +76,7 @@ export default function cart(state = initialState, action) {
       let previousQuantityArray = [...state.todo];
 
       const quantityArrayIndex1 = previousQuantityArray.findIndex(
-        item => item.id === action.payload.REMOVEITEM_ID,
+        item => item.id === action.payload
       );
       let decrementQuantityArray = previousQuantityArray[quantityArrayIndex1];
 
@@ -84,7 +84,7 @@ export default function cart(state = initialState, action) {
         // decrementQuantityArray.price =
         //   decrementQuantityArray.price / decrementQuantityArray.quantity;
         previousQuantityArray = previousQuantityArray.filter(
-          item => item.id !== action.payload.REMOVEITEM_ID,
+          item => item.id !== action.payload
         );
       } else {
         decrementQuantityArray.quantity -= 1;
@@ -105,7 +105,7 @@ export default function cart(state = initialState, action) {
       };
 
     case ActionTypes.INITIALPRICE:
-      let initialarray = [...action.payload.arrayWithInitialPrice];
+      let initialarray = [...action.payload];
 
       let initialPrice = 0;
       for (let i = 0; i < initialarray.length; i++) {

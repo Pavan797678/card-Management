@@ -15,7 +15,7 @@ import ButtonWithLoader from '../../Components/ButtonWithLoader';
 import imagePath from '../../constants/imagePath';
 import styles from './styles';
 import navigationStrings from '../../constants/navigationStrings';
-import isJs from 'is_js';
+
 
 export default function OuterScreen({navigation}) {
   const moveToNewScreen = (screenName, data = {}) => () => {
@@ -62,11 +62,7 @@ export default function OuterScreen({navigation}) {
         </View>
         <View style={styles.bottomContainer}>
           <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+            style={styles.bottomContainerView}>
             <Text style={[styles.txtSmall, styles.alreadyText]}>
               {strings.ALREADY_HAVE_AN_ACCOUNT}
             </Text>

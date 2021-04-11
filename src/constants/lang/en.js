@@ -42,8 +42,18 @@ export default {
     SHARE_APP:"Share app",
     PAYMENTS:"Payments",
     CONTACT_US:"Contact us",
-    GET_STARTED:"Get Started"
-
+    GET_STARTED:"Get Started",
+    AGGREE_WITH_TERMS_CONDITIONS:"By signing up you agree to our ",
+    TERMS_CONDITIONS:" Terms & Conditions",
+    OTP_NOT_SHARE:"Your number is safemwith us. We won't share your details with anyone",
+ALREADY_ADDED_TO_CART:"Check Cart Section Now",
+ADD_TO_CART:"ADD TO CART",
+REMOVE:"Remove",
+SAVE_FOR_LATER:"Save for later",
+ONLINE:"Online",
+OFFLINE:"Offline",
+FOLLOW:"Follow",
+LOGOUT:"LOGOUT"
 
 
 }

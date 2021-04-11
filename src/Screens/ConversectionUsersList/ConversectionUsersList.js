@@ -48,7 +48,7 @@ export default class ConversectionUsersList extends Component {
     navigation.navigate(navigationStrings.CHAT_SCREEN, {
       id: data._id,
       commonConversationId: data.commonConversationId,
-      profileImg: data.userInfo.profileImg[0].original,
+      profileImg: data.userInfo.profileImg,
       userName:data.userInfo.fullName,
       isOnline:data.userInfo.isOnline
     });

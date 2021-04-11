@@ -32,6 +32,19 @@ export default StyleSheet.create ({
       width:"40%",
       alignItems:'center',
       marginTop:height/1.5, 
+    },itemImageStyle:{
+      marginTop: '50%',
+      height: 250,
+      width: '100%',
+      resizeMode: 'contain',
+    },crouselViewStyles:{
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },buttonOuterView:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
     }
     
 

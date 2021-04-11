@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Dimensions, Button} from 'react-native';
+import strings from '../constants/lang';
 import colors from '../styles/colors';
 import commonStyles from '../styles/commonStyles';
 
@@ -26,9 +27,7 @@ export default function NearByUsersList({data}) {
               style={styles.userImage}
               source={{uri: data.profileImg[0].original}}></Image>
             <View style={styles.userName}>
-              <Text style={{fontSize:16,fontWeight:'bold',color:colors.black}}>
-                {data.firstName}
-              </Text>
+              <Text style={firstNameText}>{data.firstName}</Text>
               <Text style={commonStyles.futuraBtHeavyFont16}>
                 {data.gender}
               </Text>
@@ -37,15 +36,8 @@ export default function NearByUsersList({data}) {
               </Text>
             </View>
           </View>
-          <View
-            style={{
-              backgroundColor: colors.themeColor,
-              marginHorizontal: 20,
-              height: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{color: colors.white}}>Follow</Text>
+          <View style={styles.FollowTextView}>
+            <Text style={{color: colors.white}}>{strings.FOLLOW}</Text>
           </View>
         </View>
       </View>
@@ -61,8 +53,8 @@ const styles = StyleSheet.create({
   cartItemView: {
     height: height / 3.5,
     width: width / 2.2,
-    backgroundColor: 'white',
-    shadowColor: '#000',
+    backgroundColor: colors.white,
+    shadowColor: colors.black,
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.8,
     shadowRadius: 2,
@@ -77,10 +69,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 10,
   },
-  heading: {
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-  },
+
   userName: {
     alignItems: 'center',
   },
@@ -98,6 +87,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   buttonContentText: {
-    color: 'white',
+    color: colors.white,
   },
+  FollowTextView: {
+    backgroundColor: colors.themeColor,
+    marginHorizontal: 20,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  firstNameText: {fontSize: 16, fontWeight: 'bold', color: colors.black},
 });

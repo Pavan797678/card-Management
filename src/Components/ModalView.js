@@ -58,18 +58,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor:colors.transparent,
   },
   _modalView: {
     width: '90%',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor:colors.white,
     borderTopLeftRadius: 20,
     borderBottomEndRadius: 20,
   },
   inputTextStyle: {
     width: '90%',
-    borderColor: 'lightblue',
+    borderColor:colors.lightSky,
     borderWidth: 1,
     marginTop: 10,
   },

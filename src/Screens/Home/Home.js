@@ -23,6 +23,7 @@ import BrandedItems from '../../Components/BrandedItems';
 import colors from '../../styles/colors';
 import TopCategory from '../../Components/TopCategory';
 import socketServices from '../../utils/socketServices';
+import actions from '../../redux/actions';
 
 class Home extends Component {
   constructor(props) {
@@ -163,7 +164,6 @@ class Home extends Component {
 
   componentDidMount() {
     socketServices.initializeSocket(this?.props?.userData?.accessToken);
-    
   }
   _onChangeText = key => {
     return value => {
@@ -175,7 +175,7 @@ class Home extends Component {
   };
 
   add = itemdata => {
-    store.dispatch(add(itemdata));
+    actions.add(itemdata);
   };
 
   render() {
@@ -215,7 +215,11 @@ class Home extends Component {
                 horizontal
                 keyExtractor={item => item.name.toString()}
                 ItemSeparatorComponent={() => (
-                  <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
+                  <View
+                    style={{
+                      height: 0.3,
+                      backgroundColor: colors.textGrey,
+                    }}></View>
                 )}
                 renderItem={({item, index}) => (
                   <BrandedItems data={item} index={index} onadd={this.add} />
@@ -253,7 +257,11 @@ class Home extends Component {
                   horizontal
                   keyExtractor={item => item.name.toString()}
                   ItemSeparatorComponent={() => (
-                    <View style={{height: 0.3, backgroundColor: 'gray'}}></View>
+                    <View
+                      style={{
+                        height: 0.3,
+                        backgroundColor: colors.textGrey,
+                      }}></View>
                   )}
                   renderItem={({item}) => (
                     <BrandedItems data={item} onadd={this.add} />
@@ -293,7 +301,7 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   emailField: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     height: 50,
     marginHorizontal: 30,
     borderRadius: 5,

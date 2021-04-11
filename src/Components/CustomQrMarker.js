@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text ,StyleSheet} from 'react-native'
+import colors from '../styles/colors'
 
 export default function CustomQrMarker() {
     return (
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
         height: 250,
         width: 250,
         borderWidth: 2,
-        borderColor: 'green',
+        borderColor:colors.green,
         backgroundColor: 'transparent'
       }
 })

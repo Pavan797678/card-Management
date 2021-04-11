@@ -5,14 +5,12 @@ import ButtonWithLoader from '../../Components/ButtonWithLoader';
 import TextInputWithLabel from '../../Components/TextInputWithLabel';
 import WrapperContainer from '../../Components/WrapperContainer';
 import imagePath from '../../constants/imagePath';
+import strings from '../../constants/lang';
+
 import navigationStrings from '../../constants/navigationStrings';
 import colors from '../../styles/colors';
-import commonStyles from '../../styles/commonStyles';
 
-import {
-  moderateScaleVertical,
-  moderateScale,
-} from '../../styles/responsiveSize';
+import styles from '../OuterScreen/styles';
 
 export default class Login extends Component {
   onmove = () => {
@@ -32,7 +30,7 @@ export default class Login extends Component {
               marginHorizontal: 15,
               marginTop: moderateScaleVertical(15),
             }}>
-          <Text style={{marginVertical:10}}>Your number is safemwith us. We won't share your details with anyone</Text>
+          <Text style={{marginVertical:10}}>{strings.OTP_NOT_SHARE}</Text>
             <TextInputWithLabel
               label="Mobile Number"
               placeholder="Mobile Number"
@@ -44,13 +42,13 @@ export default class Login extends Component {
             <View style={styles.termsConditionContainer}>
             <TouchableOpacity onPress={this.onmove}>
               <Text style={{...styles.txtSmall, color: colors.textGrey}}>
-               By signing up you agree to our 
+               {strings.AGGREE_WITH_TERMS_CONDITIONS}
                 <Text
                   style={{
                     color: colors.themeColor,
                   }}>
                   {' '}
-                  Terms & Conditions
+                 {strings.TERMS_CONDITIONS}
                 </Text>
               </Text>
             </TouchableOpacity>
@@ -65,7 +63,7 @@ export default class Login extends Component {
           <View
             style={styles.socialButton}>
             <View
-              style={{width: '46%', borderWidth: 1, borderColor: colors.blue}}>
+              style={styles.facebookImageView}>
               <ButtonWithImage
                 imageSource={imagePath.fb}
                 buttonText={'Facebook'}
@@ -74,7 +72,7 @@ export default class Login extends Component {
               />
             </View>
             <View
-              style={{width: '46%', borderWidth: 1, borderColor: colors.red}}>
+              style={styles.googleImageView}>
               <ButtonWithImage
                 imageSource={imagePath.google}
                 buttonText={'Google'}
@@ -87,13 +85,13 @@ export default class Login extends Component {
           <View style={styles.bottomContainer}>
             <TouchableOpacity onPress={this.onmove}>
               <Text style={{...styles.txtSmall, color: colors.textGrey}}>
-               Already have an account?
+               {strings.ALREADY_HAVE_AN_ACCOUNT}
                 <Text
                   style={{
                     color: colors.themeColor,
                   }}>
                   {' '}
-                  Sign In
+                  {strings.LOGIN}
                 </Text>
               </Text>
             </TouchableOpacity>
@@ -103,49 +101,3 @@ export default class Login extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  hyphen: {
-    width: 100,
-    height: 1,
-    backgroundColor: colors.textGrey,
-    opacity: 0.6,
-  },
-  socialRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: moderateScaleVertical(20),
-  },
-  orText: {
-    ...commonStyles.mediumFont14,
-    lineHeight: 24,
-    textAlign: 'center',
-
-    opacity: 0.6,
-    marginTop: 0,
-    marginHorizontal: moderateScale(16),
-  },
-  socialRowBtn: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: moderateScale(40),
-    marginTop: moderateScaleVertical(20),
-  },
-  bottomContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: moderateScaleVertical(20),
-  },
-  socialButton:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
-    marginHorizontal: 20,
-    marginVertical: 20,
-  }, termsConditionContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop:10
-   
-  }
-});

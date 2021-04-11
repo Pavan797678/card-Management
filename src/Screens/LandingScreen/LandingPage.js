@@ -68,7 +68,7 @@ export default class LandingPage extends Component {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 8,
-          backgroundColor: '#ffff',
+          backgroundColor:colors.white,
         }}
         inactiveDotStyle={
           {
@@ -86,12 +86,7 @@ export default class LandingPage extends Component {
       return (
         <View>
           <Image
-            style={{
-              marginTop: '50%',
-              height: 250,
-              width: '100%',
-              resizeMode: 'contain',
-            }}
+            style={styles.itemImageStyle}
             source={item.image}
           />
           <Text style={styles.title}>{item.title}</Text>
@@ -112,11 +107,7 @@ export default class LandingPage extends Component {
             <View style={{flex: 1}}>
               <View>
                 <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+                  style={styles.crouselViewStyles}>
                   <Carousel
                     data={carouselItems}
                     sliderWidth={100}
@@ -136,11 +127,7 @@ export default class LandingPage extends Component {
               source={imagePath.loginchoiceImage}
               style={styles.image}>
               <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
+                style={styles.buttonOuterView}>
                 <View style={styles.ButtonView}>
                   <ButtonWithLoader
                     onPress={this.signUpScreenNavigation}
